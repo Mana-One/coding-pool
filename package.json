@@ -44,6 +44,7 @@
     "dotenv": "^16.0.0",
     "env-var": "^7.1.1",
     "fp-ts": "^2.11.9",
+    "neo4j-driver": "^4.4.5",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
