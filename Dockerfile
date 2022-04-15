@@ -6,7 +6,8 @@ RUN yarn install && yarn build
 
 FROM node:alpine3.15
 COPY package.json yarn.lock ./
-RUN yarn install --production
+ENV NODE_ENV=production
+RUN yarn install
 COPY --from=builder /usr/src/app/dist ./dist
 COPY sequelize-conf ./sequelize-conf
 COPY .sequelizerc docker-entrypoint.sh .
