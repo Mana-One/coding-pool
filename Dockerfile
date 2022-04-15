@@ -1,6 +1,7 @@
 FROM node:lts-alpine3.15 as builder
 WORKDIR /usr/src/app
 COPY package.json yarn.lock tsconfig.build.json ./
+COPY src ./src
 RUN yarn install && yarn build
 
 FROM node:lts-alpine3.15
