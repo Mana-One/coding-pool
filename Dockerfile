@@ -23,8 +23,8 @@ RUN apk add --no-cache --virtual .gyp \
 FROM node:alpine3.15 as release
 COPY package.json yarn.lock ./
 RUN npm prune --production
-COPY --from=builder-${TARGETARCH} /usr/src/app/dist ./dist
-COPY --from=builder-${TARGETARCH} /usr/src/app/node_modules ./node_modules
+COPY --from=builder-$TARGETARCH /usr/src/app/dist ./dist
+COPY --from=builder-$TARGETARCH /usr/src/app/node_modules ./node_modules
 COPY sequelize-conf ./sequelize-conf
 COPY .sequelizerc docker-entrypoint.sh .
 ENTRYPOINT ["./docker-entrypoint.sh"]
