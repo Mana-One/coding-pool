@@ -34,7 +34,7 @@ jobs:
         with:
           push: true
           tags: |
-            {{ secrets.DOCKER_REPO }}:${{ steps.tag_name.outputs.TAG_NAME_MAJOR }}.${{ steps.tag_name.outputs.TAG_NAME_MINOR }}
-            {{ secrets.DOCKER_REPO }}:latest
+            ${{ secrets.DOCKER_REPO }}:${{ steps.tag_name.outputs.TAG_NAME_MAJOR }}.${{ steps.tag_name.outputs.TAG_NAME_MINOR }}
+            ${{ secrets.DOCKER_REPO }}:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
