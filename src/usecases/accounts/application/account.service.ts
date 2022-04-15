@@ -1,12 +1,14 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 import { sequenceS } from "fp-ts/lib/Apply";
 import { Either, isLeft, map, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { isNone, none, Option, some } from "fp-ts/lib/Option";
 import { cumulativeValidation } from "../../../kernel/FpUtils";
-import { minLength } from "../../../kernel/StringUtils";
+import { StringUtils } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
+import { ACCOUNT_CREATED_EVENT } from "../../shared-kernel/constants";
 import { ACCOUNTS } from "../constants";
 import { Account } from "../domain/account.entity";
 import { Accounts } from "../domain/accounts";
@@ -17,7 +19,8 @@ import { Wallet } from "../domain/wallet";
 @Injectable()
 export class AccountService {
     constructor(
-        @Inject(ACCOUNTS) private readonly accounts: Accounts
+        @Inject(ACCOUNTS) private readonly accounts: Accounts,
+        private readonly eventEmitter: EventEmitter2
     ) {}
 
     async changePassword(id: string, oldPassword: string, newPassword: string, confirmPassword: string): Promise<void> {
@@ -79,6 +82,7 @@ export class AccountService {
         }
         const account = result.right;
         await this.accounts.save(account);
+        this.eventEmitter.emitAsync(ACCOUNT_CREATED_EVENT, )
     }
 
 
@@ -96,7 +100,7 @@ export class AccountService {
     }
 
     private checkUsername(username: string): Either<NonEmptyArray<string>, string> {
-        return minLength(1, "Username is empty")(username);
+        return StringUtils.minLength(1, "Username is empty")(username);
     }
 
     private checkWallet(wallet: string | null): Either<NonEmptyArray<string>, Option<Wallet>> {

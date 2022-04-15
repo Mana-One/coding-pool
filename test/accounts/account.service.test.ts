@@ -9,10 +9,12 @@ import { Accounts } from "../../src/usecases/accounts/domain/accounts";
 import { Email } from "../../src/usecases/accounts/domain/email";
 import { Password } from "../../src/usecases/accounts/domain/password";
 import { Role } from "../../src/usecases/accounts/domain/role";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 
 describe("Account service", () => {
     const accounts = mock<Accounts>();
-    const service = new AccountService(accounts);
+    const eventEmitter = mock<EventEmitter2>()
+    const service = new AccountService(accounts, eventEmitter);
 
     const mockId = UID.generate();
     const mockAccount = Account.of({

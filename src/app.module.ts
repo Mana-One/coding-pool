@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { EventEmitterModule } from "@nestjs/event-emitter";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { Dialect } from "sequelize/types";
 import { ConfigModule } from "./config/config.module";
@@ -8,6 +9,7 @@ import { AccountModule } from "./usecases/accounts/account.module";
 import { AccountModel } from "./usecases/accounts/infrastructure/account.model";
 import { AuthModule } from "./usecases/auth/auth.module";
 import { ProfileModule } from "./usecases/profiles/profile.module";
+import { SocialModule } from "./usecases/Social/social.module";
 
 const persistence = [
     SequelizeModule.forRootAsync({
@@ -33,15 +35,19 @@ const persistence = [
     Neo4jModule
 ];
 
+const events = EventEmitterModule.forRoot(); 
+
 const contexts = [
     AccountModule, 
     AuthModule,
-    ProfileModule
+    ProfileModule,
+    SocialModule
 ];
 
 @Module({
     imports: [
         ConfigModule, 
+        events,
         ...contexts,
         ...persistence
     ]
