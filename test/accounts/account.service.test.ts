@@ -9,12 +9,10 @@ import { Accounts } from "../../src/usecases/accounts/domain/accounts";
 import { Email } from "../../src/usecases/accounts/domain/email";
 import { Password } from "../../src/usecases/accounts/domain/password";
 import { Role } from "../../src/usecases/accounts/domain/role";
-import { ClientProxy } from "@nestjs/microservices";
 
 describe("Account service", () => {
     const accounts = mock<Accounts>();
-    const client = mock<ClientProxy>();
-    const service = new AccountService(accounts, client);
+    const service = new AccountService(accounts);
 
     const mockId = UID.generate();
     const mockAccount = Account.of({

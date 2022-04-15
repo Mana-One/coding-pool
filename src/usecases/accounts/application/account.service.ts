@@ -1,5 +1,4 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { ClientProxy } from "@nestjs/microservices";
 import { sequenceS } from "fp-ts/lib/Apply";
 import { Either, isLeft, map, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
@@ -8,7 +7,7 @@ import { isNone, none, Option, some } from "fp-ts/lib/Option";
 import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { minLength } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
-import { ACCOUNTS, ACCOUNT_BUS } from "../constants";
+import { ACCOUNTS } from "../constants";
 import { Account } from "../domain/account.entity";
 import { Accounts } from "../domain/accounts";
 import { Email } from "../domain/email";
@@ -18,8 +17,7 @@ import { Wallet } from "../domain/wallet";
 @Injectable()
 export class AccountService {
     constructor(
-        @Inject(ACCOUNTS) private readonly accounts: Accounts,
-        @Inject(ACCOUNT_BUS) private readonly client: ClientProxy
+        @Inject(ACCOUNTS) private readonly accounts: Accounts
     ) {}
 
     async changePassword(id: string, oldPassword: string, newPassword: string, confirmPassword: string): Promise<void> {
@@ -81,10 +79,6 @@ export class AccountService {
         }
         const account = result.right;
         await this.accounts.save(account);
-        this.client.emit("account.created", {
-            id: account.id.value,
-            username: account.username
-        });
     }
 
 
