@@ -1,0 +1,1 @@
+export const LIKES = Symbol.for("likes");
