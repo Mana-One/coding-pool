@@ -1,8 +1,8 @@
 import { mock } from "jest-mock-extended";
 import { UID } from "../../../src/kernel/UID";
-import { InvalidPublication } from "../../../src/usecases/Social/publications/errors";
-import { PublicationService } from "../../../src/usecases/Social/publications/publication.service";
-import { Publications } from "../../../src/usecases/Social/publications/publications";
+import { InvalidPublication } from "../../../src/modules/Social/publications/errors";
+import { PublicationService } from "../../../src/modules/Social/publications/publication.service";
+import { Publications } from "../../../src/modules/Social/publications/publications";
 
 describe("Publication service", () => {
     const publications = mock<Publications>();

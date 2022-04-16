@@ -1,9 +1,9 @@
 import { mock } from "jest-mock-extended";
 import { execPath } from "process";
 import { UID } from "../../../src/kernel/UID";
-import { InvalidUser } from "../../../src/usecases/Social/users/errors";
-import { UserService } from "../../../src/usecases/Social/users/user.service";
-import { Users } from "../../../src/usecases/Social/users/users";
+import { InvalidUser } from "../../../src/modules/Social/users/errors";
+import { UserService } from "../../../src/modules/Social/users/user.service";
+import { Users } from "../../../src/modules/Social/users/users";
 
 describe("User service", () => {
     const users = mock<Users>();

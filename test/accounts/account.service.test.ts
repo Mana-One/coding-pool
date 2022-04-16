@@ -3,12 +3,12 @@ import { BadRequestException, NotFoundException } from "@nestjs/common";
 import { none, some } from "fp-ts/lib/Option";
 import { mock } from "jest-mock-extended";
 import { UID } from "../../src/kernel/UID";
-import { AccountService } from "../../src/usecases/accounts/application/account.service";
-import { Account } from "../../src/usecases/accounts/domain/account.entity";
-import { Accounts } from "../../src/usecases/accounts/domain/accounts";
-import { Email } from "../../src/usecases/accounts/domain/email";
-import { Password } from "../../src/usecases/accounts/domain/password";
-import { Role } from "../../src/usecases/accounts/domain/role";
+import { AccountService } from "../../src/modules/accounts/application/account.service";
+import { Account } from "../../src/modules/accounts/domain/account.entity";
+import { Accounts } from "../../src/modules/accounts/domain/accounts";
+import { Email } from "../../src/modules/accounts/domain/email";
+import { Password } from "../../src/modules/accounts/domain/password";
+import { Role } from "../../src/modules/accounts/domain/role";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 
 describe("Account service", () => {

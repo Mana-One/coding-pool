@@ -1,8 +1,8 @@
 import { mock } from "jest-mock-extended";
 import { UID } from "../../../src/kernel/UID";
-import { Comments } from "../../../src/usecases/Social/comments/comments";
-import { CommentsService } from "../../../src/usecases/Social/comments/comments.service";
-import { InvalidComment } from "../../../src/usecases/Social/comments/errors";
+import { Comments } from "../../../src/modules/Social/comments/comments";
+import { CommentsService } from "../../../src/modules/Social/comments/comments.service";
+import { InvalidComment } from "../../../src/modules/Social/comments/errors";
 
 describe("Comments service", () => {
     const comments = mock<Comments>();

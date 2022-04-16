@@ -1,5 +1,5 @@
 import { isLeft, isRight } from "fp-ts/lib/Either";
-import { Wallet } from "../../src/usecases/accounts/domain/wallet";
+import { Wallet } from "../../src/modules/accounts/domain/wallet";
 
 describe("Wallet", () => {
     const baseWallet = "0xdc7f16D6F6A57fA52AA4Fa590D8F071B77B89aD6"

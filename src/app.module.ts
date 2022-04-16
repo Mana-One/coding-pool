@@ -5,11 +5,11 @@ import { Dialect } from "sequelize/types";
 import { ConfigModule } from "./config/config.module";
 import { DbConfig } from "./config/db.config";
 import { Neo4jModule } from "./infrastructure/neo4j/neo4j.module";
-import { AccountModule } from "./usecases/accounts/account.module";
-import { AccountModel } from "./usecases/accounts/infrastructure/account.model";
-import { AuthModule } from "./usecases/auth/auth.module";
-import { ProfileModule } from "./usecases/profiles/profile.module";
-import { SocialModule } from "./usecases/Social/social.module";
+import { AccountModule } from "./modules/accounts/account.module";
+import { AccountModel } from "./modules/accounts/infrastructure/account.model";
+import { AuthModule } from "./modules/auth/auth.module";
+import { ProfileModule } from "./modules/profiles/profile.module";
+import { SocialModule } from "./modules/Social/social.module";
 
 const persistence = [
     SequelizeModule.forRootAsync({
