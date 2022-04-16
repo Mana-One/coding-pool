@@ -1,10 +1,10 @@
 import { HttpException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Option } from "fp-ts/lib/Option";
 import * as neo4j from "neo4j-driver";
-import { Neo4jService } from "../../../infrastructure/neo4j/neo4j.service";
-import { UID } from "../../../kernel/UID";
-import { Publication } from "./publication.entity";
-import { Publications } from "./publications";
+import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
+import { UID } from "../../../../kernel/UID";
+import { Publication } from "../domain/publication";
+import { Publications } from "../domain/publications";
 
 @Injectable()
 export class PublicationsNeo4j implements Publications {

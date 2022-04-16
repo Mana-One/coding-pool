@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Req } from "@nestjs/common";
-import { PublicationCreationRequest } from "./dtos/publication-creation.request";
-import { PublicationService } from "./publication.service";
+import { PublicationCreationRequest } from "../dtos/publication-creation.request";
+import { PublicationService } from "../application/publication.service";
 
 @Controller("publications")
 export class PublicationsController {

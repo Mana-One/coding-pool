@@ -1,5 +1,5 @@
 import { BadRequestException, NotFoundException } from "@nestjs/common";
-import { UID } from "../../../kernel/UID";
+import { UID } from "../../../../kernel/UID";
 
 export class InvalidPublication extends BadRequestException {
     static fromMessages(messages: string[]): InvalidPublication {
