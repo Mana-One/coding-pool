@@ -1,6 +1,6 @@
 import { HttpException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Option } from "fp-ts/lib/Option";
-import { DateTime, int } from 'neo4j-driver';
+import * as neo4j from 'neo4j-driver';
 import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
 import { UID } from "../../../../kernel/UID";
 import { Publication } from "../domain/publication";
@@ -32,7 +32,7 @@ export class PublicationsNeo4j implements Publications {
                 "RETURN p, u\n" + 
                 "ORDER BY p.createdAt DESC\n" + 
                 "SKIP $offset LIMIT $limit",
-                { userId: userId.value, limit: int(limit), offset: int(offset) }
+                { userId: userId.value, limit: neo4j.int(limit), offset: neo4j.int(offset) }
             );
 
             const data = rows.records.map(r => toDto(r));
@@ -59,7 +59,7 @@ export class PublicationsNeo4j implements Publications {
         try {
             await transaction.run(
                 "CREATE (p:Publication { id: $id, content: $content, createdAt: $createdAt })", 
-                { id: entity.id.value, content: entity.content, createdAt: DateTime.fromStandardDate(entity.createdAt) }
+                { id: entity.id.value, content: entity.content, createdAt: neo4j.types.DateTime.fromStandardDate(entity.createdAt) }
             );
 
             await transaction.run(
