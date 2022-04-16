@@ -4,6 +4,7 @@ import { Injectable } from "@nestjs/common";
 export class AppConfig {
     constructor(
         readonly PORT: number,
-        readonly JWT_SECRET: string
+        readonly JWT_SECRET: string,
+        readonly HOST: string
     ) {}
 }

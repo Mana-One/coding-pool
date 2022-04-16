@@ -4,5 +4,5 @@ import { Timeline } from "../dtos/timeline";
 import { Publication } from "./publication";
 
 export interface Publications extends Repository<UID, Publication> {
-    listByUser(userId: UID, limit: number, offset: number): Promise<Timeline>;
+    listByUser(userId: UID, limit: number, offset: number)/*: Promise<Timeline>*/;
 }

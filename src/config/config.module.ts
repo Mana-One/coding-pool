@@ -13,7 +13,8 @@ import { Neo4jConfig } from "./neo4j.config";
         provide: AppConfig,
         useValue: new AppConfig(
             get("PORT").required().asPortNumber(),
-            get("JWT_SECRET").required().asString()
+            get("JWT_SECRET").required().asString(),
+            get("HOST").required().asUrlString()
         )
     }, {
         provide: DbConfig,
