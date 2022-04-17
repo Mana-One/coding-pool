@@ -16,12 +16,8 @@ const persistence = [
     SequelizeModule.forRootAsync({
         imports: [ConfigModule],
         useFactory: (config: DbConfig) => ({
-            dialect: config.DIALECT as Dialect,
-            host: config.HOST,
-            port: config.PORT,
-            username: config.USER,
-            password: config.PASSWORD,
-            database: config.NAME,
+            url: config.URL,
+            dialect: "postgres",
             models: [AccountModel, UserStatsModel],
             dialectOptions: {
                 ssl: {
