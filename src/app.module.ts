@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { SequelizeModule } from "@nestjs/sequelize";
-import { Dialect } from "sequelize/types";
 import { ConfigModule } from "./config/config.module";
 import { DbConfig } from "./config/db.config";
 import { Neo4jModule } from "./infrastructure/neo4j/neo4j.module";
