@@ -1,8 +1,8 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { none, Option, some } from "fp-ts/lib/Option";
-import { UID } from "../../../kernel/UID";
-import { UserStats } from "./user-stats";
-import { UserStatsDao } from "./user-stats.dao";
+import { UID } from "../../../../kernel/UID";
+import { UserStats } from "../dtos/user-stats";
+import { UserStatsDao } from "../application/user-stats.dao";
 import { UserStatsModel } from "./user-stats.model";
 
 @Injectable()

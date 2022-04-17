@@ -1,5 +1,5 @@
 import { AllowNull, Column, DataType, Default, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { UserStats } from "./user-stats";
+import { UserStats } from "../dtos/user-stats";
 
 @Table({
     modelName: "user_stats",

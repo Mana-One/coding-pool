@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { Usecase } from "../../../kernel/Usecase";
-import { USER_STATS_DAO } from "./constants";
-import { CreateUserStatsCommand } from "./create-user-stats.command";
+import { Usecase } from "../../../../kernel/Usecase";
+import { USER_STATS_DAO } from "../constants";
+import { CreateUserStatsCommand } from "../dtos/create-user-stats.command";
 import { UserStatsDao } from "./user-stats.dao";
 
 @Injectable()

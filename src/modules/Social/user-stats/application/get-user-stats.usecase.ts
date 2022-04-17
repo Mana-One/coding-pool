@@ -1,11 +1,11 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
-import { UID } from "../../../kernel/UID";
-import { Usecase } from "../../../kernel/Usecase";
-import { USER_STATS_DAO } from "./constants";
-import { GetUserStatsQuery } from "./get-user-stats.query";
-import { UserStats } from "./user-stats";
+import { UID } from "../../../../kernel/UID";
+import { Usecase } from "../../../../kernel/Usecase";
+import { USER_STATS_DAO } from "../constants";
+import { GetUserStatsQuery } from "../dtos/get-user-stats.query";
+import { UserStats } from "../dtos/user-stats";
 import { UserStatsDao } from "./user-stats.dao";
 
 @Injectable()
