@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { Neo4jModule } from "../../../infrastructure/neo4j/neo4j.module";
-import { AddUserUsecase } from "./add-user.usecase";
+import { AddUserUsecase } from "./application/add-user.usecase";
 import { SOCIAL_GRAPH_DAO } from "./constants";
-import { FollowUserUsecase } from "./follow-user.usecase";
-import { Neo4jSocialGraphDao } from "./neo4j.social-graph.dao";
-import { SocialGraphController } from "./social-graph.controller";
-import { SocialGraphListener } from "./social-graph.listener";
+import { FollowUserUsecase } from "./application/follow-user.usecase";
+import { Neo4jSocialGraphDao } from "./infrastructure/neo4j.social-graph.dao";
+import { SocialGraphController } from "./exposition/social-graph.controller";
+import { SocialGraphListener } from "./application/social-graph.listener";
 
 @Module({
     imports: [Neo4jModule],

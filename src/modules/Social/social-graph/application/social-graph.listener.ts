@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
-import { AccountCreated } from "../../shared-kernel/account-created.event";
-import { ACCOUNT_CREATED_EVENT } from "../../shared-kernel/constants";
+import { AccountCreated } from "../../../shared-kernel/account-created.event";
+import { ACCOUNT_CREATED_EVENT } from "../../../shared-kernel/constants";
 import { AddUserUsecase } from "./add-user.usecase";
 
 @Injectable()

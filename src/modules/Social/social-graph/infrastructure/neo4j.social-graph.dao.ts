@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
-import { Neo4jService } from "../../../infrastructure/neo4j/neo4j.service";
-import { UID } from "../../../kernel/UID";
-import { SocialGraphDao } from "./social-graph.dao";
+import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
+import { UID } from "../../../../kernel/UID";
+import { SocialGraphDao } from "../application/social-graph.dao";
 
 @Injectable()
 export class Neo4jSocialGraphDao implements SocialGraphDao {

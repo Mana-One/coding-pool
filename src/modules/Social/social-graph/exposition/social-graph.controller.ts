@@ -1,6 +1,6 @@
 import { Controller, Param, Post, Req } from "@nestjs/common";
 import { request } from "http";
-import { FollowUserUsecase } from "./follow-user.usecase";
+import { FollowUserUsecase } from "../application/follow-user.usecase";
 
 @Controller("social")
 export class SocialGraphController {

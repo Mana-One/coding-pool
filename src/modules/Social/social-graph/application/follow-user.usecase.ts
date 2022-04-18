@@ -3,13 +3,13 @@ import { EventEmitter2 } from "@nestjs/event-emitter";
 import { sequenceS } from "fp-ts/lib/Apply";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { cumulativeValidation } from "../../../kernel/FpUtils";
-import { UID } from "../../../kernel/UID";
-import { Usecase } from "../../../kernel/Usecase";
-import { USER_FOLLOWED_EVENT } from "../../shared-kernel/constants";
-import { UserFollowed } from "../../shared-kernel/user-followed.event";
-import { SOCIAL_GRAPH_DAO } from "./constants";
-import { FollowUserCommand } from "./dtos/follow-user.command";
+import { cumulativeValidation } from "../../../../kernel/FpUtils";
+import { UID } from "../../../../kernel/UID";
+import { Usecase } from "../../../../kernel/Usecase";
+import { USER_FOLLOWED_EVENT } from "../../../shared-kernel/constants";
+import { UserFollowed } from "../../../shared-kernel/user-followed.event";
+import { SOCIAL_GRAPH_DAO } from "../constants";
+import { FollowUserCommand } from "../dtos/follow-user.command";
 import { SocialGraphDao } from "./social-graph.dao";
 
 @Injectable()
