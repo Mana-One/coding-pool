@@ -20,4 +20,9 @@ export class SequelizeUserStatsDao implements UserStatsDao {
         }
         return some(instance.toJSON());
     }
+
+    async update(userStats: UserStats): Promise<void> {
+        await UserStatsModel.update(userStats, { where: { id: userStats.id }})
+            .catch(err => { throw new InternalServerErrorException(String(err)); });
+    }
 }
