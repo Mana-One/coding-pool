@@ -1,16 +1,17 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { sequenceS } from "fp-ts/lib/Apply";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { UID } from "../../../kernel/UID";
 import { Usecase } from "../../../kernel/Usecase";
+import { SOCIAL_GRAPH_DAO } from "./constants";
 import { FollowUserCommand } from "./follow-user.command";
 import { SocialGraphDao } from "./social-graph.dao";
 
 @Injectable()
 export class FollowUserUsecase implements Usecase<FollowUserCommand, void> {
-    constructor(private readonly socialGraphDao: SocialGraphDao) {}
+    constructor(@Inject(SOCIAL_GRAPH_DAO) private readonly socialGraphDao: SocialGraphDao) {}
 
     async execute(input: FollowUserCommand): Promise<void> {
         const check = pipe(
