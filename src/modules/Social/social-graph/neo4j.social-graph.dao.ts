@@ -25,12 +25,12 @@ export class Neo4jSocialGraphDao implements SocialGraphDao {
         }
     }
 
-    async addUser(id: UID): Promise<void> {
+    async addUser(id: UID, username: string): Promise<void> {
         const session = this.neo4jService.startSession();
         try {
             await session.run(
-                "MERGE (u:User { id: $id })",
-                { id: id.value }
+                "MERGE (u:User { id: $id, username: $username })",
+                { id: id.value, username }
             );
 
         } catch(err) {
