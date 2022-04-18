@@ -83,7 +83,7 @@ export class AccountService {
         }
         const account = result.right;
         await this.accounts.save(account);
-        this.eventEmitter.emitAsync(ACCOUNT_CREATED_EVENT, new AccountCreated(account.id.value, account.username));
+        this.eventEmitter.emit(ACCOUNT_CREATED_EVENT, new AccountCreated(account.id.value, account.username));
     }
 
 

@@ -32,6 +32,6 @@ export class FollowUserUsecase implements Usecase<FollowUserCommand, void> {
         
         const data = check.right;
         await this.socialGraphDao.addFollowRelationship(data.follower, data.followee);
-        this.eventEmitter.emitAsync(USER_FOLLOWED_EVENT, new UserFollowed(data.followee.value, data.follower.value));
+        this.eventEmitter.emit(USER_FOLLOWED_EVENT, new UserFollowed(data.followee.value, data.follower.value));
     }
 }

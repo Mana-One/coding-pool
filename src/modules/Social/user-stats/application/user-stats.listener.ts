@@ -20,13 +20,13 @@ export class UserStatsListener {
     @OnEvent(ACCOUNT_CREATED_EVENT)
     async handleAccountCreated(event: AccountCreated): Promise<void> {
         await this.createUserStats.execute(event)
-            .catch(this.logger.error);
+            .catch(err => this.logger.error(err));
     }
 
     @OnEvent(USER_FOLLOWED_EVENT)
     async handleUserFollowed(event: UserFollowed): Promise<void> {
         await this.incrementFollowers.execute({ id: event.followee })
             .then(async () => await this.incrementFollowing.execute({ id: event.follower }))
-            .catch(this.logger.error);
+            .catch(err => this.logger.error(err));
     }
 }
