@@ -2,17 +2,17 @@ import { Injectable, Logger } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
 import { AccountCreated } from "../../shared-kernel/account-created.event";
 import { ACCOUNT_CREATED_EVENT } from "../../shared-kernel/constants";
-import { UserService } from "./user.service";
+import { AddUserUsecase } from "./add-user.usecase";
 
 @Injectable()
-export class UserListener {
-    private readonly logger = new Logger(UserListener.name);
+export class SocialGraphListener {
+    private readonly logger = new Logger(SocialGraphListener.name);
 
-    constructor(private readonly service: UserService) {}
+    constructor(private readonly addUser: AddUserUsecase) {}
 
     @OnEvent(ACCOUNT_CREATED_EVENT)
-    async create(event: AccountCreated) {
-        await this.service.create(event)
+    async handleAccountCreated(event: AccountCreated): Promise<void> {
+        await this.addUser.execute(event)
             .catch(err => this.logger.error(err));
     }
 }

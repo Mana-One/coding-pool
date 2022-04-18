@@ -9,7 +9,7 @@ import { Usecase } from "../../../kernel/Usecase";
 import { USER_FOLLOWED_EVENT } from "../../shared-kernel/constants";
 import { UserFollowed } from "../../shared-kernel/user-followed.event";
 import { SOCIAL_GRAPH_DAO } from "./constants";
-import { FollowUserCommand } from "./follow-user.command";
+import { FollowUserCommand } from "./dtos/follow-user.command";
 import { SocialGraphDao } from "./social-graph.dao";
 
 @Injectable()

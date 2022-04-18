@@ -24,4 +24,20 @@ export class Neo4jSocialGraphDao implements SocialGraphDao {
             await session.close();
         }
     }
+
+    async addUser(id: UID): Promise<void> {
+        const session = this.neo4jService.startSession();
+        try {
+            await session.run(
+                "MERGE (u:User { id: $id })",
+                { id: id.value }
+            );
+
+        } catch(err) {
+            throw new InternalServerErrorException(String(err));
+
+        } finally {
+            await session.close();
+        }     
+    }
 }
