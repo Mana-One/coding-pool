@@ -19,12 +19,7 @@ import { Neo4jConfig } from "./neo4j.config";
     }, {
         provide: DbConfig,
         useValue: new DbConfig(
-            get("DB_DIALECT").required().asString(),
-            get("DB_HOST").required().asString(),
-            get("DB_USER").required().asString(),
-            get("DB_PASSWORD").required().asString(),
-            get("DB_NAME").required().asString(),
-            get("DB_PORT").required().asPortNumber()
+            get("DATABASE_URL").required().asUrlString()
         )
     }, {
         provide: Neo4jConfig,

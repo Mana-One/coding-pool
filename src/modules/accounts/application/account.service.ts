@@ -8,6 +8,7 @@ import { isNone, none, Option, some } from "fp-ts/lib/Option";
 import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { StringUtils } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
+import { AccountCreated } from "../../shared-kernel/account-created.event";
 import { ACCOUNT_CREATED_EVENT } from "../../shared-kernel/constants";
 import { ACCOUNTS } from "../constants";
 import { Account } from "../domain/account.entity";
@@ -82,7 +83,7 @@ export class AccountService {
         }
         const account = result.right;
         await this.accounts.save(account);
-        this.eventEmitter.emitAsync(ACCOUNT_CREATED_EVENT, )
+        this.eventEmitter.emitAsync(ACCOUNT_CREATED_EVENT, new AccountCreated(account.id.value, account.username));
     }
 
 
