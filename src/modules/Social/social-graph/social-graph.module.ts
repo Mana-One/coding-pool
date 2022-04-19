@@ -6,12 +6,14 @@ import { FollowUserUsecase } from "./application/follow-user.usecase";
 import { Neo4jSocialGraphDao } from "./infrastructure/neo4j.social-graph.dao";
 import { SocialGraphController } from "./exposition/social-graph.controller";
 import { SocialGraphListener } from "./application/social-graph.listener";
+import { UnfollowUserUsecase } from "./application/unfollow-user.usecase";
 
 @Module({
     imports: [Neo4jModule],
     providers: [
         FollowUserUsecase,
         AddUserUsecase,
+        UnfollowUserUsecase,
         SocialGraphListener, {
         provide: SOCIAL_GRAPH_DAO,
         useClass: Neo4jSocialGraphDao

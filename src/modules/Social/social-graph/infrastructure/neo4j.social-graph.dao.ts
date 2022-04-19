@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
+import { HttpException, Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
 import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
 import { UID } from "../../../../kernel/UID";
 import { SocialGraphDao } from "../application/social-graph.dao";
@@ -55,6 +55,9 @@ export class Neo4jSocialGraphDao implements SocialGraphDao {
             }
 
         } catch(err) {
+            if (err instanceof HttpException) {
+                throw err;
+            }
             throw new InternalServerErrorException(String(err));
 
         } finally {

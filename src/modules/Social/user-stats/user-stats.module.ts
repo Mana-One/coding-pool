@@ -1,5 +1,7 @@
 import { Module } from "@nestjs/common";
 import { CreateUserStatsUsecase } from "./application/create-user-stats.usecase";
+import { DecrementFollowersUsecase } from "./application/decrement-followers.usecase";
+import { DecrementFollowingUsecase } from "./application/decrement-following.usecase";
 import { GetUserStatsUsecase } from "./application/get-user-stats.usecase";
 import { IncrementFollowersUsecase } from "./application/increment-followers.usecase";
 import { IncrementFollowingUsecase } from "./application/increment-following.usecase";
@@ -14,7 +16,9 @@ import { SequelizeUserStatsDao } from "./infrastructure/sequelize.user-stats.dao
         GetUserStatsUsecase, 
         UserStatsListener, 
         IncrementFollowersUsecase,
-        IncrementFollowingUsecase, {
+        IncrementFollowingUsecase,
+        DecrementFollowersUsecase,
+        DecrementFollowingUsecase, {
             provide: USER_STATS_DAO,
             useClass: SequelizeUserStatsDao
     }],
