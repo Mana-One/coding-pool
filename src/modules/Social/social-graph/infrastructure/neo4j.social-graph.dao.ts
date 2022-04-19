@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
 import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
 import { UID } from "../../../../kernel/UID";
 import { SocialGraphDao } from "../application/social-graph.dao";
@@ -39,5 +39,26 @@ export class Neo4jSocialGraphDao implements SocialGraphDao {
         } finally {
             await session.close();
         }     
+    }
+
+    async removeFollowRelationShip(follower: UID, followee: UID): Promise<void> {
+        const session = this.neo4jService.startSession();
+        try {
+            const result = await session.run(
+                "MATCH (follower:User { id: $followerId })-[f:FOLLOWS]->(followee:User { id: $followeeId })\n" +
+                "DELETE f",
+                { followeeId: followee.value, followerId: follower.value }
+            );
+
+            if (result.summary.updateStatistics.updates().relationshipsDeleted === 0) {
+                throw new NotFoundException("Follow relationship not found.");
+            }
+
+        } catch(err) {
+            throw new InternalServerErrorException(String(err));
+
+        } finally {
+            await session.close();
+        }
     }
 }
