@@ -7,7 +7,7 @@ import { Publication } from "../../domain/publications/publication";
 import { Publications } from "../../domain/publications/publications";
 
 @Injectable()
-export class PublicationsNeo4j implements Publications {
+export class Neo4jPublications implements Publications {
     constructor(private readonly neo4jService: Neo4jService) {}
 
     findById(id: UID): Promise<Option<Publication>> {

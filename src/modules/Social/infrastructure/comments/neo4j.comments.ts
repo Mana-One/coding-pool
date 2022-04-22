@@ -1,14 +1,14 @@
 import { HttpException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Option } from "fp-ts/lib/Option";
 import * as neo4j from "neo4j-driver";
-import { Neo4jService } from "../../../infrastructure/neo4j/neo4j.service";
-import { UID } from "../../../kernel/UID";
-import { Comment } from "./comment.entity";
-import { Comments } from "./comments";
-import { NotTheOwner } from "./errors";
+import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
+import { UID } from "../../../../kernel/UID";
+import { Comment } from "../../domain/comments/comment";
+import { Comments } from "../../domain/comments/comments";
+import { NotTheOwner } from "../../domain/comments/errors";
 
 @Injectable()
-export class CommentsNeo4j implements Comments {
+export class Neo4jComments implements Comments {
     constructor(private readonly neo4jService: Neo4jService) {}
 
     findById(id: UID): Promise<Option<Comment>> {

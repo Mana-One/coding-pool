@@ -1,17 +1,21 @@
 import { Body, Controller, Delete, Param, Post, Req } from "@nestjs/common";
-import { CommentsService } from "./comments.service";
-import { CreateCommentRequest } from "./dtos/create-comment.request";
+import { CreateCommentRequest } from "./create-comment.request";
+import { CreateCommentUsecase } from "../../application/comments/create-comment.usecase.ts/create-comment.usecase";
+import { RemoveCommentUsecase } from "../../application/comments/remove-comment/remove-comment.usecase";
 
 @Controller("comments")
 export class CommentsController {
-    constructor(private readonly service: CommentsService) {}
+    constructor(
+        private readonly createCommentUsecase: CreateCommentUsecase,
+        private readonly removeCommentUsecase: RemoveCommentUsecase
+    ) {}
 
     @Post()
     async create(
         @Req() request,
         @Body() body: CreateCommentRequest
     ) {
-        await this.service.create({
+        await this.createCommentUsecase.execute({
             content: body.content,
             userId: request.user.accountId,
             publicationId: body.publicationId
@@ -23,7 +27,7 @@ export class CommentsController {
         @Req() request,
         @Param("id") commentId: string
     ) {
-        await this.service.remove({
+        await this.removeCommentUsecase.execute({
             commentId,
             userId: request.user.accountId
         });
