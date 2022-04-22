@@ -12,6 +12,7 @@ import { CreateCommentUsecase } from "../application/comments/create-comment.use
 import { RemoveCommentUsecase } from "../application/comments/remove-comment/remove-comment.usecase";
 import { Neo4jComments } from "./comments/neo4j.comments";
 import { CommentsController } from "../exposition/comments/comments.controller";
+import { ListCommentsUsecase } from "../application/comments/list-comments/list-comments.usecase";
 
 const usersProviders = [GetUserUsecase, AccountCreatedListener];
 const publicationsProviders = [
@@ -22,7 +23,8 @@ const publicationsProviders = [
 }];
 const commentsProvider = [
     CreateCommentUsecase,
-    RemoveCommentUsecase, {
+    RemoveCommentUsecase, 
+    ListCommentsUsecase, {
         provide: COMMENTS,
         useClass: Neo4jComments
 }];
