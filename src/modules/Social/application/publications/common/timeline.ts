@@ -1,4 +1,4 @@
-import { Page } from "../../../../kernel/Page";
+import { Page } from "../../../../../kernel/Page";
 
 export interface PublicationDto {
     id: string 

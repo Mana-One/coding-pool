@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class PublicationCreationRequest {
+export class CreatePublicationRequest {
     @IsString()
     @IsNotEmpty()
     content: string;
