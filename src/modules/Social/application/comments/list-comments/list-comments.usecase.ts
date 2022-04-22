@@ -23,7 +23,7 @@ export class ListCommentsUsecase {
             const rows = await transaction.run(
                 "MATCH (u:User)-[:COMMENTED]->(c:Comment)-[:IS_ATTACHED_TO]->(p:Publication { id: $publicationId })\n" +
                 "RETURN c, u\n" + 
-                "ORDER BY p.createdAt DESC\n" + 
+                "ORDER BY c.createdAt DESC\n" + 
                 "SKIP $offset LIMIT $limit",
                 { publicationId: request.publicationId, limit: int(request.limit), offset: int(request.offset) }
             );

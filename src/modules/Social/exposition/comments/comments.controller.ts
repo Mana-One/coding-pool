@@ -1,13 +1,21 @@
-import { Body, Controller, Delete, Param, Post, Req } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, Req } from "@nestjs/common";
 import { CreateCommentRequest } from "./create-comment.request";
 import { CreateCommentUsecase } from "../../application/comments/create-comment.usecase.ts/create-comment.usecase";
 import { RemoveCommentUsecase } from "../../application/comments/remove-comment/remove-comment.usecase";
+import { Public } from "../../../auth/public.decorator";
+import { ListCommentsUsecase } from "../../application/comments/list-comments/list-comments.usecase";
+import { ListCommentsRequest } from "./list-comments.request";
+import { request } from "http";
+import { AppConfig } from "../../../../config/app.config";
+import { PageResponse } from "../../../../kernel/PageResponse";
 
 @Controller("comments")
 export class CommentsController {
     constructor(
+        private readonly appConfig: AppConfig,
         private readonly createCommentUsecase: CreateCommentUsecase,
-        private readonly removeCommentUsecase: RemoveCommentUsecase
+        private readonly removeCommentUsecase: RemoveCommentUsecase,
+        private readonly listCommentsUsecase: ListCommentsUsecase
     ) {}
 
     @Post()
@@ -31,5 +39,17 @@ export class CommentsController {
             commentId,
             userId: request.user.accountId
         });
+    }
+
+    @Public()
+    @Get()
+    async listComments(
+        @Req() request,
+        @Query() query: ListCommentsRequest
+    ) {
+        const page = await this.listCommentsUsecase.execute(query);
+        const url = new URL(request.baseUrl + request.path, this.appConfig.HOST);
+        url.searchParams.set("publicationId", query.publicationId);
+        return new PageResponse(page, url);
     }
 } 
