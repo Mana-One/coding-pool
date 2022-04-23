@@ -9,7 +9,7 @@ import { AccountModule } from "./modules/accounts/account.module";
 import { AccountModel } from "./modules/accounts/infrastructure/account.model";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ProfileModule } from "./modules/profiles/profile.module";
-import { SocialModule } from "./modules/Social/social.module";
+import { SocialModule } from "./modules/Social/infrastructure/social.module";
 
 const persistence = [
     SequelizeModule.forRootAsync({

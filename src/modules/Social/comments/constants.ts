@@ -1,1 +1,0 @@
-export const COMMENTS = Symbol.for("comments");

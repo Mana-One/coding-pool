@@ -1,4 +1,6 @@
 export class AccountCreated {
-    id: string;
-    username: string;
+    constructor(
+        readonly id: string,
+        readonly username: string
+    ) {}
 }
