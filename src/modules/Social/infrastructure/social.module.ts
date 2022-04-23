@@ -7,12 +7,14 @@ import { COMMENTS, PUBLICATIONS } from "../constants";
 import { PublicationsController } from "../exposition/publications/publications.controller";
 import { UsersController } from "../exposition/users/user.controller";
 import { Neo4jPublications } from "./publications/neo4j.publications";
-import { LikesModule } from "../likes/likes.module";
 import { CreateCommentUsecase } from "../application/comments/create-comment.usecase.ts/create-comment.usecase";
 import { RemoveCommentUsecase } from "../application/comments/remove-comment/remove-comment.usecase";
 import { Neo4jComments } from "./comments/neo4j.comments";
 import { CommentsController } from "../exposition/comments/comments.controller";
 import { ListCommentsUsecase } from "../application/comments/list-comments/list-comments.usecase";
+import { AddLikeUsecase } from "../application/likes/add-like/add-like.usecase";
+import { RemoveLikeUsecase } from "../application/likes/remove-like/remove-like.usecase";
+import { LikesController } from "../exposition/likes/likes.controller";
 
 const usersProviders = [GetUserUsecase, AccountCreatedListener];
 const publicationsProviders = [
@@ -21,17 +23,20 @@ const publicationsProviders = [
         provide: PUBLICATIONS,
         useClass: Neo4jPublications
 }];
-const commentsProvider = [
+const commentsProviders = [
     CreateCommentUsecase,
     RemoveCommentUsecase, 
     ListCommentsUsecase, {
         provide: COMMENTS,
         useClass: Neo4jComments
 }];
+const likesProviders = [
+    AddLikeUsecase,
+    RemoveLikeUsecase
+]
 
 @Module({
-    imports: [LikesModule],
-    providers: [...usersProviders, ...publicationsProviders, ...commentsProvider],
-    controllers: [UsersController, PublicationsController, CommentsController]
+    providers: [...usersProviders, ...publicationsProviders, ...commentsProviders, ...likesProviders],
+    controllers: [UsersController, PublicationsController, CommentsController, LikesController]
 })
 export class SocialModule {}
