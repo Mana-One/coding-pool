@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, Req } from "@nestjs/common";
 import { CreateCommentRequest } from "./create-comment.request";
-import { CreateCommentUsecase } from "../../application/comments/create-comment.usecase.ts/create-comment.usecase";
+import { CreateCommentUsecase } from "../../application/comments/create-comment/create-comment.usecase";
 import { RemoveCommentUsecase } from "../../application/comments/remove-comment/remove-comment.usecase";
 import { Public } from "../../../auth/public.decorator";
 import { ListCommentsUsecase } from "../../application/comments/list-comments/list-comments.usecase";

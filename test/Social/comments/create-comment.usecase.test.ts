@@ -1,6 +1,6 @@
 import { mock } from "jest-mock-extended";
 import { UID } from "../../../src/kernel/UID";
-import { CreateCommentUsecase } from "../../../src/modules/Social/application/comments/create-comment.usecase.ts/create-comment.usecase";
+import { CreateCommentUsecase } from "../../../src/modules/Social/application/comments/create-comment/create-comment.usecase";
 import { Comments } from "../../../src/modules/Social/domain/comments/comments";
 import { InvalidComment } from "../../../src/modules/Social/domain/comments/errors";
 

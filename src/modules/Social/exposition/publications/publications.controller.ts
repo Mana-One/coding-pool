@@ -5,7 +5,7 @@ import { AppConfig } from "../../../../config/app.config";
 import { PageRequest } from "../../../../kernel/PageRequest";
 import { Public } from "../../../auth/public.decorator";
 import { CreatePublicationUsecase } from "../../application/publications/create-publication/create-publication.usecase";
-import { GetUserTimelineUsecase } from "../../application/publications/get-user-timeline.usecase.ts/get-user-timeline.usecase";
+import { GetUserTimelineUsecase } from "../../application/publications/get-user-timeline/get-user-timeline.usecase";
 
 @Controller("publications")
 export class PublicationsController {
