@@ -2,6 +2,7 @@ import { AllowNull, Column, CreatedAt, DataType, Min, Model, PrimaryKey, Table, 
 
 interface ProgramProps {
     id: string 
+    title: string
     content: string 
     languageId: number 
     authorId: string
@@ -16,6 +17,10 @@ export class ProgramModel extends Model<ProgramProps> {
     @AllowNull(false)
     @Column(DataType.UUID)
     id: string;
+
+    @AllowNull(false)
+    @Column(DataType.STRING(100))
+    title: string;
     
     @AllowNull(false)
     @Column(DataType.TEXT)

@@ -16,6 +16,7 @@ interface ProgramProps {
 }
 
 export class Program extends Entity<UID, Omit<ProgramProps, "id">> {
+    get title(): string { return this.props.title; }
     get content(): string { return this.props.content }
     get languageId(): number { return this.props.languageId; }
     get authorId(): UID { return this.props.authorId }

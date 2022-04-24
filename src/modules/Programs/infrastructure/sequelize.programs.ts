@@ -26,6 +26,7 @@ export class SequelizePrograms implements Programs {
     private toPersistence(entity: Program) {
         return {
             id: entity.id.value,
+            title: entity.title,
             content: entity.content,
             languageId: entity.languageId,
             authorId: entity.authorId.value
@@ -35,6 +36,7 @@ export class SequelizePrograms implements Programs {
     private toDomain(instance: ProgramModel): Program {
         return Program.of({
             id: UID.of(instance.id),
+            title: instance.title,
             content: instance.content,
             languageId: instance.languageId,
             authorId: UID.of(instance.authorId)

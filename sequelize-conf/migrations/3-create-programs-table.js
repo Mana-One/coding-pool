@@ -5,6 +5,11 @@ module.exports = {
                 type: Sequelize.DataTypes.UUID,
                 primaryKey: true
             },
+            title: {
+                type: Sequelize.DataTypes.STRING(100),
+                allowNull: false
+            },
+
             content: {
                 type: Sequelize.DataTypes.TEXT,
                 allowNull: false
