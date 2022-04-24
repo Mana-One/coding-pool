@@ -1,5 +1,8 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { isLeft } from "fp-ts/lib/Either";
+import { UID } from "../../../../kernel/UID";
 import { Usecase } from "../../../../kernel/Usecase";
+import { InvalidProgram } from "../../domain/errors";
 import { ProgramModel } from "../../infrastructure/program.model";
 import { ListProgramsQuery } from "./list-programs.query";
 import { Portfolio, SingleProgramDto } from "./portfolio";
@@ -7,8 +10,13 @@ import { Portfolio, SingleProgramDto } from "./portfolio";
 @Injectable()
 export class ListProgramsUsecase implements Usecase<ListProgramsQuery, Portfolio> {
     async execute(request: ListProgramsQuery): Promise<Portfolio> {
+        const authorId = UID.fromString(request.authorId, "Invalid author id");
+        if (isLeft(authorId)) {
+            throw InvalidProgram.fromMessages(authorId.left);
+        }
+
         const { rows, count } = await ProgramModel.findAndCountAll({
-            where: { authorId: request.authorId },
+            where: { authorId: authorId.right.value },
             order: [["createdAt", "DESC"]],
             limit: request.limit,
             offset: request.offset
