@@ -7,9 +7,11 @@ import { Public } from "../../auth/public.decorator";
 import { CreateProgramUsecase } from "../application/create-program/create-program.usecase";
 import { ListProgramsUsecase } from "../application/list-programs/list-programs.usecase";
 import { ReplaceContentUsecase } from "../application/replace-content/replace-content.usecase";
+import { ReplaceTitleUsecase } from "../application/replace-title/replace-title.usecase";
 import { CreateProgramRequest } from "./create-program.request";
 import { ListProgramsRequest } from "./list-programs.request";
 import { ReplaceContentRequest } from "./replace-content.request";
+import { ReplaceTitleRequest } from "./replace-title.request";
 
 @Controller("programs")
 export class ProgramsController {
@@ -17,7 +19,8 @@ export class ProgramsController {
         private readonly appConfig: AppConfig,
         private readonly createProgramUsecase: CreateProgramUsecase,
         private readonly listProgramsUsecase: ListProgramsUsecase,
-        private readonly replaceContentUsecase: ReplaceContentUsecase
+        private readonly replaceContentUsecase: ReplaceContentUsecase,
+        private readonly replaceTitleUsecase: ReplaceTitleUsecase
     ) {}
 
     @Post()
@@ -32,7 +35,7 @@ export class ProgramsController {
         });
     }
 
-    @Put(":id")
+    @Put("content/:id")
     async replaceContent(
         @Req() request,
         @Param("id") id: string,
@@ -41,6 +44,19 @@ export class ProgramsController {
         await this.replaceContentUsecase.execute({
             id,
             content: body.content,
+            callerId: request.user.accountId
+        });
+    }
+
+    @Put("title/:id")
+    async replaceTitle(
+        @Req() request,
+        @Param("id") id: string,
+        @Body() body: ReplaceTitleRequest
+    ) {
+        await this.replaceTitleUsecase.execute({
+            id,
+            title: body.title,
             callerId: request.user.accountId
         });
     }
