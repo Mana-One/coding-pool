@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { isLeft } from "fp-ts/lib/Either";
 import { UID } from "../../../../kernel/UID";
 import { Usecase } from "../../../../kernel/Usecase";
-import { InvalidProgram } from "../../domain/errors";
+import { InvalidProgram } from "../errors";
 import { ProgramModel } from "../../infrastructure/program.model";
 import { ListProgramsQuery } from "./list-programs.query";
 import { Portfolio, SingleProgramDto } from "./portfolio";
