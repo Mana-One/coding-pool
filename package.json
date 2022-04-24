@@ -1,6 +1,6 @@
 {
   "name": "coding-pool-api",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Back end for CodingPool",
   "main": "./dist/main.js",
   "author": "Paolo Manaois <paolo.manaois@yahoo.fr>",
