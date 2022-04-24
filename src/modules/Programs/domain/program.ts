@@ -21,6 +21,13 @@ export class Program extends Entity<UID, Omit<ProgramProps, "id">> {
     get languageId(): number { return this.props.languageId; }
     get authorId(): UID { return this.props.authorId }
 
+    replaceTitle(title: string): Either<NonEmptyArray<string>, void> {
+        return pipe(
+            StringUtils.lengthBetween(1, 100, "Program title length must be between 1-100")(title),
+            map(arg => { this.props.title = arg; }),
+        );   
+    }
+
     replaceContent(content: string): Either<NonEmptyArray<string>, void> {
         return pipe(
             StringUtils.maxLength(50_000, "Program body too long.")(content),

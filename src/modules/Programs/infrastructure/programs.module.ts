@@ -11,8 +11,8 @@ import { SequelizePrograms } from "./sequelize.programs";
         CreateProgramUsecase, 
         ListProgramsUsecase, 
         ReplaceContentUsecase, {
-        provide: PROGRAMS,
-        useClass: SequelizePrograms
+            provide: PROGRAMS,
+            useClass: SequelizePrograms
     }],
     controllers: [ProgramsController]
 })

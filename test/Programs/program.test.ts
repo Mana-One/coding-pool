@@ -66,9 +66,9 @@ describe("Program", () => {
         })
     })
 
-    describe("replaceContent", () => {
+    describe("modifications", () => {
         let program: Program;
-
+    
         beforeEach(() => {
             program = Program.of({
                 id: UID.generate(),
@@ -79,28 +79,59 @@ describe("Program", () => {
             });
         })
 
-        it("should return Right<void>", () => {
-            const result = program.replaceContent("another content");
-            expect.hasAssertions();
-            if(isRight(result)) {
-                expect(result.right).toBeUndefined();
-            }
+        describe("replaceContent", () => {
+            it("should return Right<void>", () => {
+                const result = program.replaceContent("another content");
+                expect.hasAssertions();
+                if(isRight(result)) {
+                    expect(result.right).toBeUndefined();
+                    expect(program.content).toBe("another content");
+                }
+            })
+    
+            it("should return Right<void> when the new content is empty", () => {
+                const result = program.replaceContent("");
+                expect.hasAssertions();
+                if(isRight(result)) {
+                    expect(result.right).toBeUndefined();
+                    expect(program.content).toBe("");
+                }
+            })
+    
+            it("should return Left<NonEmptyArray<string>> when the content is too long", () => {
+                const result = program.replaceContent("another content".padEnd(50_001, "to"));
+                expect.hasAssertions();
+                if(isLeft(result)) {
+                    expect(result.left).toHaveLength(1);
+                }
+            })
         })
-
-        it("should return Right<void> when the new content is empty", () => {
-            const result = program.replaceContent("");
-            expect.hasAssertions();
-            if(isRight(result)) {
-                expect(result.right).toBeUndefined();
-            }
-        })
-
-        it("should return Left<NonEmptyArray<string>> when the content is too long", () => {
-            const result = program.replaceContent("another content".padEnd(50_001, "to"));
-            expect.hasAssertions();
-            if(isLeft(result)) {
-                expect(result.left).toHaveLength(1);
-            }
-        })
+    
+        describe("replaceTitle", () => {
+            it("should return Right<void>", () => {
+                const result = program.replaceTitle("My new Program");
+                expect.hasAssertions();
+                if(isRight(result)) {
+                    expect(result.right).toBeUndefined();
+                    expect(program.title).toBe("My new Program");
+                }
+            })
+    
+            it("should return Left<NonEmptyArray<string>> the new title is empty", () => {
+                const result = program.replaceTitle("");
+                expect.hasAssertions();
+                if(isLeft(result)) {
+                    expect(result.left).toHaveLength(1);
+                }
+            })
+    
+            it("should return Left<NonEmptyArray<string>> when the new title is too long", () => {
+                const result = program.replaceTitle("My new Program".padEnd(101, "to"));
+                expect.hasAssertions();
+                if(isLeft(result)) {
+                    expect(result.left).toHaveLength(1);
+                }
+            })
+        })  
     })
 })
