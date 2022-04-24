@@ -15,8 +15,17 @@ import { ListCommentsUsecase } from "../application/comments/list-comments/list-
 import { AddLikeUsecase } from "../application/likes/add-like/add-like.usecase";
 import { RemoveLikeUsecase } from "../application/likes/remove-like/remove-like.usecase";
 import { LikesController } from "../exposition/likes/likes.controller";
+import { FollowUserUsecase } from "../application/users/follow-user/follow-user.usecase";
+import { UnfollowUserUsecase } from "../application/users/unfollow-user/unfollow-user.usecase";
+import { ProgramCreatedListener } from "../application/users/program-created.listener";
 
-const usersProviders = [GetUserUsecase, AccountCreatedListener];
+const usersProviders = [
+    GetUserUsecase, 
+    AccountCreatedListener, 
+    FollowUserUsecase, 
+    UnfollowUserUsecase, 
+    ProgramCreatedListener
+];
 const publicationsProviders = [
     CreatePublicationUsecase,
     GetUserTimelineUsecase, {

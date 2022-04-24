@@ -9,6 +9,8 @@ import { AccountModule } from "./modules/accounts/account.module";
 import { AccountModel } from "./modules/accounts/infrastructure/account.model";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ProfileModule } from "./modules/profiles/profile.module";
+import { ProgramModel } from "./modules/Programs/infrastructure/program.model";
+import { ProgramsModule } from "./modules/Programs/infrastructure/programs.module";
 import { SocialModule } from "./modules/Social/infrastructure/social.module";
 
 const persistence = [
@@ -21,7 +23,7 @@ const persistence = [
             username: config.USER,
             password: config.PASSWORD,
             database: config.NAME,
-            models: [AccountModel],
+            models: [AccountModel, ProgramModel],
             dialectOptions: {
                 ssl: {
                     require: true,
@@ -41,7 +43,8 @@ const contexts = [
     AccountModule, 
     AuthModule,
     ProfileModule,
-    SocialModule
+    SocialModule,
+    ProgramsModule
 ];
 
 @Module({
