@@ -6,20 +6,46 @@ describe("Program", () => {
     const authorId = UID.generate();
 
     describe("static create", () => {
-        it("should insstantiate a Program", () => {
-            const result = Program.create({ authorId: authorId.value });
+        it("should instantiate a Program", () => {
+            const result = Program.create({ authorId: authorId.value, languageId: 17 });
             expect.hasAssertions();
             if (isRight(result)) {
                 expect(result.right).toBeInstanceOf(Program);
+                expect(result.right.languageId).toBe(17);
                 expect(result.right.content).toHaveLength(0);
+                expect(result.right.authorId.equals(authorId)).toBe(true);
             }
         })
 
-        it("should return errors when the author id is invalid", () => {
-            const result = Program.create({ authorId: "" });
+        it("should return an error when the author id is invalid", () => {
+            const result = Program.create({ authorId: "", languageId: 17 });
             expect.hasAssertions();
             if (isLeft(result)) {
                 expect(result.left).toHaveLength(1);
+            }
+        })
+
+        it("should return an error when the language id is negative", () => {
+            const result = Program.create({ authorId: authorId.value, languageId: -17 });
+            expect.hasAssertions();
+            if (isLeft(result)) {
+                expect(result.left).toHaveLength(1);
+            }
+        })
+
+        it("should return an error when the language id not an integer", () => {
+            const result = Program.create({ authorId: authorId.value, languageId: 3.2 });
+            expect.hasAssertions();
+            if (isLeft(result)) {
+                expect(result.left).toHaveLength(1);
+            }
+        })
+
+        it("should cumulate errors", () => {
+            const result = Program.create({ authorId: "", languageId: 3.2 });
+            expect.hasAssertions();
+            if (isLeft(result)) {
+                expect(result.left).toHaveLength(2);
             }
         })
     })
@@ -31,6 +57,7 @@ describe("Program", () => {
             program = Program.of({
                 id: UID.generate(),
                 content: "some content",
+                languageId: 17,
                 authorId
             });
         })

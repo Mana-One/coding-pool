@@ -1,18 +1,22 @@
-import { Either, map } from "fp-ts/lib/Either";
+import { sequenceS } from "fp-ts/lib/Apply";
+import { Either, fromPredicate, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { Entity } from "../../../kernel/Entity";
+import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { StringUtils } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
 
 interface ProgramProps {
     id: UID
     content: string
+    languageId: number
     authorId: UID
 }
 
 export class Program extends Entity<UID, Omit<ProgramProps, "id">> {
     get content(): string { return this.props.content }
+    get languageId(): number { return this.props.languageId; }
     get authorId(): UID { return this.props.authorId }
 
     replaceContent(content: string): Either<NonEmptyArray<string>, void> {
@@ -24,12 +28,19 @@ export class Program extends Entity<UID, Omit<ProgramProps, "id">> {
 
     static create(props: {
         authorId: string
+        languageId: number
     }): Either<NonEmptyArray<string>, Program> {
         return pipe(
-            UID.fromString(props.authorId, "Invalid author id."),
-            map(arg => new Program(UID.generate(), {
-                content: "",
-                authorId: arg
+            sequenceS(cumulativeValidation)({
+                authorId: UID.fromString(props.authorId, "Invalid author id."),
+                languageId: fromPredicate(
+                    (n: number) => Number.isInteger(n) && n >= 0,
+                    () => of("Language id must be a positive integer")
+                )(props.languageId)
+            }),
+            map(args => new Program(UID.generate(), {
+                ...args,
+                content: ""
             }))
         );
     }
