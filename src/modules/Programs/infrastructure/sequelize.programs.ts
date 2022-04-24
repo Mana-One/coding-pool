@@ -8,8 +8,18 @@ import { ProgramModel } from "./program.model";
 @Injectable()
 export class SequelizePrograms implements Programs {
     async findById(id: UID): Promise<Option<Program>> {
-        const instance = await ProgramModel.findByPk(id.value)
-            .catch(err => { throw new InternalServerErrorException(String(err)); });
+        throw new Error("Not implemented.");
+    }
+
+    async findByIdAndAuthor(id: UID, authorId: UID): Promise<Option<Program>> {
+        const instance = await ProgramModel.findOne({
+            where: {
+                id: id.value,
+                authorId: authorId.value
+            }
+        })
+        .catch(err => { throw new InternalServerErrorException(String(err)); });
+
         if (instance === null) {
             return none;
         }
