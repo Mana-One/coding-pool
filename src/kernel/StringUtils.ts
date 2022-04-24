@@ -13,7 +13,7 @@ export module StringUtils {
     }
 
     export const lengthBetween = (minLength: number, maxLength: number, err: string) => (s: string): StringResult => {
-        return minLength <= s.length && s.length <= maxLength ? 
+        return (minLength <= s.length && s.length <= maxLength) ? 
             right(s) :
             left(of(err));
     }

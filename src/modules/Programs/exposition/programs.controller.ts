@@ -28,7 +28,7 @@ export class ProgramsController {
         @Body() body: CreateProgramRequest
     ) {
         await this.createProgramUsecase.execute({
-            title: request.title,
+            title: body.title,
             authorId: request.user.accountId,
             languageId: body.languageId
         });
