@@ -7,7 +7,7 @@ describe("Program", () => {
 
     describe("static create", () => {
         it("should instantiate a Program", () => {
-            const result = Program.create({ authorId: authorId.value, languageId: 17 });
+            const result = Program.create({ title: "My program", authorId: authorId.value, languageId: 17 });
             expect.hasAssertions();
             if (isRight(result)) {
                 expect(result.right).toBeInstanceOf(Program);
@@ -17,8 +17,24 @@ describe("Program", () => {
             }
         })
 
+        it("should return an error when the title is too short", () => {
+            const result = Program.create({ title: "", authorId: authorId.value, languageId: 17 });
+            expect.hasAssertions();
+            if (isLeft(result)) {
+                expect(result.left).toHaveLength(1);
+            }
+        })
+
+        it("should return an error when the title is too long", () => {
+            const result = Program.create({ title: "MyProgram".padEnd(101, "to"), authorId: authorId.value, languageId: 17 });
+            expect.hasAssertions();
+            if (isLeft(result)) {
+                expect(result.left).toHaveLength(1);
+            }
+        })
+
         it("should return an error when the author id is invalid", () => {
-            const result = Program.create({ authorId: "", languageId: 17 });
+            const result = Program.create({ title: "My program", authorId: "", languageId: 17 });
             expect.hasAssertions();
             if (isLeft(result)) {
                 expect(result.left).toHaveLength(1);
@@ -26,7 +42,7 @@ describe("Program", () => {
         })
 
         it("should return an error when the language id is negative", () => {
-            const result = Program.create({ authorId: authorId.value, languageId: -17 });
+            const result = Program.create({ title: "My program", authorId: authorId.value, languageId: -17 });
             expect.hasAssertions();
             if (isLeft(result)) {
                 expect(result.left).toHaveLength(1);
@@ -34,7 +50,7 @@ describe("Program", () => {
         })
 
         it("should return an error when the language id not an integer", () => {
-            const result = Program.create({ authorId: authorId.value, languageId: 3.2 });
+            const result = Program.create({ title: "My program", authorId: authorId.value, languageId: 3.2 });
             expect.hasAssertions();
             if (isLeft(result)) {
                 expect(result.left).toHaveLength(1);
@@ -42,7 +58,7 @@ describe("Program", () => {
         })
 
         it("should cumulate errors", () => {
-            const result = Program.create({ authorId: "", languageId: 3.2 });
+            const result = Program.create({ title: "My program", authorId: "", languageId: 3.2 });
             expect.hasAssertions();
             if (isLeft(result)) {
                 expect(result.left).toHaveLength(2);
@@ -56,6 +72,7 @@ describe("Program", () => {
         beforeEach(() => {
             program = Program.of({
                 id: UID.generate(),
+                title: "My program",
                 content: "some content",
                 languageId: 17,
                 authorId

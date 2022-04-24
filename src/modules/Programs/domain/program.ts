@@ -9,6 +9,7 @@ import { UID } from "../../../kernel/UID";
 
 interface ProgramProps {
     id: UID
+    title: string
     content: string
     languageId: number
     authorId: UID
@@ -27,11 +28,13 @@ export class Program extends Entity<UID, Omit<ProgramProps, "id">> {
     }
 
     static create(props: {
+        title: string
         authorId: string
         languageId: number
     }): Either<NonEmptyArray<string>, Program> {
         return pipe(
             sequenceS(cumulativeValidation)({
+                title: StringUtils.lengthBetween(1, 100, "Program title length must be between 1-100")(props.title),
                 authorId: UID.fromString(props.authorId, "Invalid author id."),
                 languageId: fromPredicate(
                     (n: number) => Number.isInteger(n) && n >= 0,
