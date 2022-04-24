@@ -17,8 +17,15 @@ import { RemoveLikeUsecase } from "../application/likes/remove-like/remove-like.
 import { LikesController } from "../exposition/likes/likes.controller";
 import { FollowUserUsecase } from "../application/users/follow-user/follow-user.usecase";
 import { UnfollowUserUsecase } from "../application/users/unfollow-user/unfollow-user.usecase";
+import { ProgramCreatedListener } from "../application/users/program-created.listener";
 
-const usersProviders = [GetUserUsecase, AccountCreatedListener, FollowUserUsecase, UnfollowUserUsecase];
+const usersProviders = [
+    GetUserUsecase, 
+    AccountCreatedListener, 
+    FollowUserUsecase, 
+    UnfollowUserUsecase, 
+    ProgramCreatedListener
+];
 const publicationsProviders = [
     CreatePublicationUsecase,
     GetUserTimelineUsecase, {
