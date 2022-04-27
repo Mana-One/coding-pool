@@ -18,6 +18,7 @@ import { LikesController } from "../exposition/likes/likes.controller";
 import { FollowUserUsecase } from "../application/users/follow-user/follow-user.usecase";
 import { UnfollowUserUsecase } from "../application/users/unfollow-user/unfollow-user.usecase";
 import { ProgramCreatedListener } from "../application/users/program-created.listener";
+import { GetHomeTimelineUsecase } from "../application/publications/get-home-timeline/get-home-timeline.usecase";
 
 const usersProviders = [
     GetUserUsecase, 
@@ -28,7 +29,8 @@ const usersProviders = [
 ];
 const publicationsProviders = [
     CreatePublicationUsecase,
-    GetUserTimelineUsecase, {
+    GetUserTimelineUsecase, 
+    GetHomeTimelineUsecase, {
         provide: PUBLICATIONS,
         useClass: Neo4jPublications
 }];
