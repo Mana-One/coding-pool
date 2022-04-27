@@ -11,7 +11,8 @@ export class GetUserUsecase {
         const session = this.neo4jService.startSession();
         const row = await session.run(
             "MATCH (user:User { id: $userId })\n" +
-            "OPTIONAL MATCH (follower:User)-[:FOLLOWS]->(user)-[:FOLLOWS]->(followee:User)\n" +
+            "OPTIONAL MATCH (follower:User)-[:FOLLOWS]->(user)\n" +
+            "OPTIONAL MATCH (user)-[:FOLLOWS]->(followee:User)\n" +
             "RETURN user, COUNT(follower) as followers, COUNT(followee) as following",
             { userId: request.userId }
         )

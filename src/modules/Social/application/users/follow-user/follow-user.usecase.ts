@@ -16,10 +16,9 @@ export class FollowUserUsecase implements Usecase<FollowCommand, void> {
         const { followee, follower } = this.validateRequest(request);
         const session = this.neo4jService.startSession();
         await session.run(
-            "MATCH (followee:User), (follower:User)\n" + 
-            "WHERE followee.id = $followeeId AND follower.id = $followerId\n" +
-            "MERGE (follower)-[f:FOLLOWS]->(followee)",
-            { followeeId: followee, followerId: follower }
+            "MATCH (followee:User { id: $followeeId }), (follower:User {id: $followerId })\n" +
+            "MERGE (follower)-[:FOLLOWS]->(followee)",
+            { followeeId: followee.value, followerId: follower.value }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
         .finally(async () => await session.close());

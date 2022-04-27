@@ -18,10 +18,10 @@ export class UnfollowUserUsecase implements Usecase<FollowCommand, void> {
         await session.run(
             "MATCH (follower:User { id: $followerId })-[f:FOLLOWS]->(followee:User { id: $followeeId })\n" +
             "DELETE f",
-            { followeeId: followee, followerId: follower }
+            { followeeId: followee.value, followerId: follower.value }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
-        .finally(async () => await session.close());
+        .finally(async () => { await session.close(); });
     }
 
     private validateRequest(request: FollowCommand) {
