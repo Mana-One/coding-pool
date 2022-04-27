@@ -11,20 +11,21 @@ export class GetPublicationUsecase implements Usecase<GetPublicationQuery, Publi
     async execute(request: GetPublicationQuery): Promise<PublicationDto> {
         const session = this.neo4jService.startSession();
 
-        return await session.run(
-            "MATCH (publication:Publication { id: $id })<-[:PUBLISHED]-(publisher:User)\n" +
+        const row = await session.run(
+            "MATCH (publisher:User)-[:PUBLISHED]->(publication:Publication { id: $id })\n" +
             "OPTIONAL MATCH (u:User)-[:LIKES]->(publication)\n" +
             "OPTIONAL MATCH (c:Comment)-[:IS_ATTACHED_TO]->(publication)\n" +
             "RETURN publication, publisher, COUNT(u) as likes, COUNT(c) as comments",
             { id: request.id }
         )
-        .then(row => this.toDto(row.records[0] || null))
         .catch(err => { throw new InternalServerErrorException(String(err)); })
         .finally(async () => await session.close());
+
+        return this.toDto(row.records[0] || null);
     }
 
     private toDto(data: any): PublicationDto {
-        if (data.get("publication") === null || data.get("publisher")) {
+        if (data.get("publication") === null || data.get("publisher") === null) {
             throw new NotFoundException("Publication not found.");
         }
         const publication = data.get("publication");
