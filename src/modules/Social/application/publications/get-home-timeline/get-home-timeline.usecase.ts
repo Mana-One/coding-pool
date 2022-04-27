@@ -15,8 +15,8 @@ export class GetHomeTimelineUsecase implements Usecase<GetUserTimelineQuery, Tim
 
         try {
             const countResult = await transaction.run(
-                "MATCH (u:User { id: $userId })-[:PUBLISHED]->(p:Publication)\n" +
-                "RETURN COUNT(p) as total", 
+                "MATCH (:User { id: $userId })-[:FOLLOWS]->(:User)-[:PUBLISHED]->(publication:Publication)\n" +
+                "RETURN COUNT(publication) as total", 
                 { userId: request.userId }
             );
             const total = countResult.records[0].get("total").low;
