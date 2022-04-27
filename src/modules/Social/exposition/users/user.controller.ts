@@ -1,15 +1,21 @@
-import { Controller, Delete, Get, Param, Post, Req } from "@nestjs/common";
+import { Controller, Delete, Get, Param, Post, Query, Req } from "@nestjs/common";
+import { AppConfig } from "../../../../config/app.config";
+import { PageResponse } from "../../../../kernel/PageResponse";
 import { Public } from "../../../auth/public.decorator";
 import { FollowUserUsecase } from "../../application/users/follow-user/follow-user.usecase";
 import { GetUserUsecase } from "../../application/users/get-user/get-user.usecase";
+import { SearchUsersUsecase } from "../../application/users/search-users/search-users.usecase";
 import { UnfollowUserUsecase } from "../../application/users/unfollow-user/unfollow-user.usecase";
+import { SearchUsersRequest } from "./search-users.request";
 
 @Controller("users")
 export class UsersController {
     constructor(
+        private readonly appConfig: AppConfig,
         private readonly getUserUsecase: GetUserUsecase,
         private readonly followUserUsecase: FollowUserUsecase,
-        private readonly unfollowUserUsecase: UnfollowUserUsecase
+        private readonly unfollowUserUsecase: UnfollowUserUsecase,
+        private readonly searchUsersUsecase: SearchUsersUsecase
     ) {}
 
     @Post("follow/:followee")
@@ -37,6 +43,18 @@ export class UsersController {
     @Get("me")
     async getSelf(@Req() request) {
         return await this.getUserUsecase.execute({ userId: request.user.accountId });
+    }
+
+    @Public()
+    @Get("search")
+    async searchUsers(
+        @Req() request,
+        @Query() query: SearchUsersRequest
+    ) {
+        const page = await this.searchUsersUsecase.execute(query);
+        const url = new URL(request.baseUrl + request.path, this.appConfig.HOST);
+        url.searchParams.set("username", query.username);
+        return new PageResponse(page, url);
     }
 
     @Public()
