@@ -4,6 +4,7 @@ import { PageRequest } from "../../../kernel/PageRequest";
 import { PageResponse } from "../../../kernel/PageResponse";
 import { Public } from "../../auth/public.decorator";
 import { CreateProgramUsecase } from "../application/create-program/create-program.usecase";
+import { GetProgramUsecase } from "../application/get-program/get-program.usecase";
 import { ListProgramsUsecase } from "../application/list-programs/list-programs.usecase";
 import { ReplaceContentUsecase } from "../application/replace-content/replace-content.usecase";
 import { ReplaceTitleUsecase } from "../application/replace-title/replace-title.usecase";
@@ -19,7 +20,8 @@ export class ProgramsController {
         private readonly createProgramUsecase: CreateProgramUsecase,
         private readonly listProgramsUsecase: ListProgramsUsecase,
         private readonly replaceContentUsecase: ReplaceContentUsecase,
-        private readonly replaceTitleUsecase: ReplaceTitleUsecase
+        private readonly replaceTitleUsecase: ReplaceTitleUsecase,
+        private readonly getProgramUsecase: GetProgramUsecase
     ) {}
 
     @Post()
@@ -60,7 +62,7 @@ export class ProgramsController {
         });
     }
 
-    @Get("me")
+    @Get("portfolio/me")
     async getOwnPortfolio(
         @Req() request,
         @Query() query: PageRequest
@@ -77,7 +79,7 @@ export class ProgramsController {
     }
 
     @Public()
-    @Get()
+    @Get("portfolio")
     async getPortfolio(
         @Req() request,
         @Query() query: ListProgramsRequest
@@ -88,4 +90,9 @@ export class ProgramsController {
         return new PageResponse(page, url);
     }
 
+    @Public()
+    @Get(":id")
+    async getProgram(@Param("id") id: string) {
+        return this.getProgramUsecase.execute({ id });
+    }
 }
