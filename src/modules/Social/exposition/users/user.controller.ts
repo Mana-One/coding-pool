@@ -53,7 +53,7 @@ export class UsersController {
     ) {
         const page = await this.searchUsersUsecase.execute(query);
         const url = new URL(request.baseUrl + request.path, this.appConfig.HOST);
-        url.searchParams.set("username", request.username);
+        url.searchParams.set("username", query.username);
         return new PageResponse(page, url);
     }
 

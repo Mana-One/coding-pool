@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import { int } from "neo4j-driver";
 import { Neo4jService } from "../../../../../infrastructure/neo4j/neo4j.service";
 import { Usecase } from "../../../../../kernel/Usecase";
 import { SingleUserDto, UserList } from "../common/user-list";
@@ -29,7 +30,7 @@ export class SearchUsersUsecase implements Usecase<SearchUsersQuery, UserList> {
                 "RETURN user\n" +
                 "ORDER BY user.username\n" +
                 "SKIP $offset LIMIT $limit",
-                { username: request.username, limit: request.limit, offset: request.offset }
+                { username: request.username, limit: int(request.limit), offset: int(request.offset) }
             );
 
             await transaction.commit();
