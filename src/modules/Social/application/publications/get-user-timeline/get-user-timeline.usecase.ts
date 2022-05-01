@@ -21,9 +21,22 @@ export class GetUserTimelineUsecase {
             const total = countResult.records[0].get("total").low;
 
             const rows = await transaction.run(
-                "MATCH (u:User { id: $userId })-[pu:PUBLISHED]->(p:Publication)\n" +
-                "RETURN p, u\n" + 
-                "ORDER BY p.createdAt DESC\n" + 
+                "MATCH (user:User { id: $userId })-[:PUBLISHED]->(publication:Publication)\n" +
+
+                "CALL {\n" +
+                "\tWITH publication\n" +
+                "\tOPTIONAL MATCH (l:User)-[:LIKED]->(publication)\n" +
+                "\tRETURN COUNT(l) as likes\n" +
+                "}\n" +
+
+                "CALL {\n" +
+                "\tWITH publication\n" +
+                "\tOPTIONAL MATCH (c:Comment)-[:IS_ATTACHED_TO]->(publication)\n" +
+                "\tRETURN COUNT(c) as comments\n" +
+                "}\n" +
+                
+                "RETURN publication, user, likes, comments\n" + 
+                "ORDER BY publication.createdAt DESC\n" + 
                 "SKIP $offset LIMIT $limit",
                 { userId: request.userId, limit: int(request.limit), offset: int(request.offset) }
             );
@@ -47,12 +60,14 @@ export class GetUserTimelineUsecase {
 
     private toDto(data: any): PublicationDto {
         return {
-            id: data.get("p").properties.id,
-            content: data.get("p").properties.content,
-            createdAt: Neo4jService.parseDate(data.get("p").properties.createdAt),
+            id: data.get("publication").properties.id,
+            content: data.get("publication").properties.content,
+            createdAt: Neo4jService.parseDate(data.get("publication").properties.createdAt),
+            likes: data.get("likes").low,
+            comments: data.get("comments").low,
             author: {
-                id: data.get("u").properties.id,
-                username: data.get("u").properties.username
+                id: data.get("user").properties.id,
+                username: data.get("user").properties.username
             }
         };
     }

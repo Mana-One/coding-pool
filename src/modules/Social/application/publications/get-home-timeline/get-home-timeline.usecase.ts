@@ -23,7 +23,20 @@ export class GetHomeTimelineUsecase implements Usecase<GetUserTimelineQuery, Tim
 
             const rows = await transaction.run(
                 "MATCH (:User { id: $userId })-[:FOLLOWS]->(followee:User)-[:PUBLISHED]->(publication:Publication)\n" +
-                "RETURN followee, publication\n" + 
+
+                "CALL {\n" +
+                "\tWITH publication\n" +
+                "\tOPTIONAL MATCH (liker:User)-[:LIKED]->(publication)\n" +
+                "\tRETURN COUNT(liker) as likes\n" +
+                "}\n" +
+
+                "CALL {\n" +
+                "\tWITH publication\n" +
+                "\tOPTIONAL MATCH (c:Comment)-[:IS_ATTACHED_TO]->(publication)\n" +
+                "\tRETURN COUNT(c) as comments\n" +
+                "}\n" +
+
+                "RETURN followee, publication, likes, comments\n" + 
                 "ORDER BY publication.createdAt DESC\n" + 
                 "SKIP $offset LIMIT $limit",
                 { userId: request.userId, limit: int(request.limit), offset: int(request.offset) }
@@ -51,6 +64,8 @@ export class GetHomeTimelineUsecase implements Usecase<GetUserTimelineQuery, Tim
             id: data.get("publication").properties.id,
             content: data.get("publication").properties.content,
             createdAt: Neo4jService.parseDate(data.get("publication").properties.createdAt),
+            likes: data.get("likes").low,
+            comments: data.get("comments").low,
             author: {
                 id: data.get("followee").properties.id,
                 username: data.get("followee").properties.username

@@ -13,9 +13,9 @@ export class GetPublicationUsecase implements Usecase<GetPublicationQuery, Publi
 
         const row = await session.run(
             "MATCH (publisher:User)-[:PUBLISHED]->(publication:Publication { id: $id })\n" +
-            "OPTIONAL MATCH (u:User)-[:LIKES]->(publication)\n" +
-            "OPTIONAL MATCH (c:Comment)-[:IS_ATTACHED_TO]->(publication)\n" +
-            "RETURN publication, publisher, COUNT(u) as likes, COUNT(c) as comments",
+            "RETURN publication, publisher,\n" +
+            "COUNT( [(u:User)-[:LIKED]->(publication) | u] ) as likes,\n" +
+            "COUNT( [(c:Comment)-[:IS_ATTACHED_TO]->(publication) | c] ) as comments",
             { id: request.id }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
