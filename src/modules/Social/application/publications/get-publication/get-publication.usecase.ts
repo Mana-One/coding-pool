@@ -16,7 +16,7 @@ export class GetPublicationUsecase implements Usecase<GetPublicationQuery, Publi
             "RETURN publication, publisher,\n" +
             "COUNT( [(u:User)-[:LIKED]->(publication) | u] ) as likes,\n" +
             "COUNT( [(c:Comment)-[:IS_ATTACHED_TO]->(publication) | c] ) as comments,\n" + 
-            "EXISTS((caller:User { id: $callerId })-[:LIKED]->(publication)) as isLiked",
+            "EXISTS((:User { id: $callerId })-[:LIKED]->(publication)) as isLiked",
             { id: request.id, callerId: request.callerId }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
