@@ -15,8 +15,9 @@ export class GetPublicationUsecase implements Usecase<GetPublicationQuery, Publi
             "MATCH (publisher:User)-[:PUBLISHED]->(publication:Publication { id: $id })\n" +
             "RETURN publication, publisher,\n" +
             "COUNT( [(u:User)-[:LIKED]->(publication) | u] ) as likes,\n" +
-            "COUNT( [(c:Comment)-[:IS_ATTACHED_TO]->(publication) | c] ) as comments",
-            { id: request.id }
+            "COUNT( [(c:Comment)-[:IS_ATTACHED_TO]->(publication) | c] ) as comments,\n" + 
+            "EXISTS((caller:User { id: $callerId })-[:LIKED]->(publication)) as isLiked",
+            { id: request.id, callerId: request.callerId }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
         .finally(async () => await session.close());
@@ -40,6 +41,7 @@ export class GetPublicationUsecase implements Usecase<GetPublicationQuery, Publi
             createdAt: Neo4jService.parseDate(publication.properties.createdAt),
             comments,
             likes,
+            isLiked: data.get("isLiked"),
             author: {
                 id: publisher.properties.id,
                 username: publisher.properties.username

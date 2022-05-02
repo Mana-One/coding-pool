@@ -71,9 +71,11 @@ export class PublicationsController {
         return new PageResponse(page, new URL(request.baseUrl + request.path, this.appConfig.HOST));
     }
 
-    @Public()
     @Get(":id")
-    async getPublication(@Param("id") id: string) {
-        return this.getPublicationUsecase.execute({ id });
+    async getPublication(
+        @Param("id") id: string,
+        @Req() request
+    ) {
+        return this.getPublicationUsecase.execute({ id, callerId: request.user.accountId });
     }
 }
