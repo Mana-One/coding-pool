@@ -36,10 +36,15 @@ export class GetHomeTimelineUsecase implements Usecase<GetUserTimelineQuery, Tim
                 "\tRETURN COUNT(c) as comments\n" +
                 "}\n" +
 
-                "RETURN followee, publication, likes, comments\n" + 
+                "CALL {\n" +
+                "\tWITH publication\n" +
+                "\tRETURN EXISTS((:User { id: $callerId })-[:LIKED]->(publication)) as isLiked\n" +
+                "}\n" +
+
+                "RETURN followee, publication, likes, comments, isLiked\n" + 
                 "ORDER BY publication.createdAt DESC\n" + 
                 "SKIP $offset LIMIT $limit",
-                { userId: request.userId, limit: int(request.limit), offset: int(request.offset) }
+                { userId: request.userId, limit: int(request.limit), offset: int(request.offset), callerId: request.callerId }
             );
 
             const data = rows.records.map(r => this.toDto(r));
@@ -66,6 +71,7 @@ export class GetHomeTimelineUsecase implements Usecase<GetUserTimelineQuery, Tim
             createdAt: Neo4jService.parseDate(data.get("publication").properties.createdAt),
             likes: data.get("likes").low,
             comments: data.get("comments").low,
+            isLiked: data.get("isLiked"),
             author: {
                 id: data.get("followee").properties.id,
                 username: data.get("followee").properties.username

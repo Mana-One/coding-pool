@@ -34,11 +34,16 @@ export class GetUserTimelineUsecase {
                 "\tOPTIONAL MATCH (c:Comment)-[:IS_ATTACHED_TO]->(publication)\n" +
                 "\tRETURN COUNT(c) as comments\n" +
                 "}\n" +
+
+                "CALL {\n" +
+                "\tWITH publication\n" +
+                "\tRETURN EXISTS((:User {id: $callerId })-[:LIKED]->(publication)) as isLiked\n" +
+                "}\n" +
                 
                 "RETURN publication, user, likes, comments\n" + 
                 "ORDER BY publication.createdAt DESC\n" + 
                 "SKIP $offset LIMIT $limit",
-                { userId: request.userId, limit: int(request.limit), offset: int(request.offset) }
+                { userId: request.userId, limit: int(request.limit), offset: int(request.offset), callerId: request.callerId }
             );
 
             const data = rows.records.map(r => this.toDto(r));
@@ -65,6 +70,7 @@ export class GetUserTimelineUsecase {
             createdAt: Neo4jService.parseDate(data.get("publication").properties.createdAt),
             likes: data.get("likes").low,
             comments: data.get("comments").low,
+            isLiked: data.get("isLiked"),
             author: {
                 id: data.get("user").properties.id,
                 username: data.get("user").properties.username

@@ -6,6 +6,7 @@ export interface PublicationDto {
     createdAt: Date 
     likes: number 
     comments: number
+    isLiked: boolean
     author: {
         id: string 
         username: string

@@ -38,7 +38,8 @@ export class PublicationsController {
         const page = await this.getUserTimelineUsecase.execute({
             userId: request.user.accountId,
             limit: query.limit,
-            offset: query.offset
+            offset: query.offset,
+            callerId: request.user.accountId
         });
         return new PageResponse(page, new URL(request.baseUrl + request.path, this.appConfig.HOST));
     }
@@ -51,7 +52,8 @@ export class PublicationsController {
         const page = await this.getHomeTimelineUsecase.execute({
             userId: request.user.accountId,
             limit: query.limit,
-            offset: query.offset
+            offset: query.offset,
+            callerId: request.user.accountId
         });
         return new PageResponse(page, new URL(request.baseUrl + request.path, this.appConfig.HOST));
     }
@@ -66,7 +68,8 @@ export class PublicationsController {
         const page = await this.getUserTimelineUsecase.execute({
             userId,
             limit: query.limit,
-            offset: query.offset
+            offset: query.offset,
+            callerId: request.user.accountId
         });
         return new PageResponse(page, new URL(request.baseUrl + request.path, this.appConfig.HOST));
     }
