@@ -13,10 +13,25 @@ export class GetPublicationUsecase implements Usecase<GetPublicationQuery, Publi
 
         const row = await session.run(
             "MATCH (publisher:User)-[:PUBLISHED]->(publication:Publication { id: $id })\n" +
-            "RETURN publication, publisher,\n" +
-            "COUNT( [(u:User)-[:LIKED]->(publication) | u] ) as likes,\n" +
-            "COUNT( [(c:Comment)-[:IS_ATTACHED_TO]->(publication) | c] ) as comments,\n" + 
-            "EXISTS((:User { id: $callerId })-[:LIKED]->(publication)) as isLiked",
+
+            "CALL {\n" +
+            "\tWITH publication\n" +
+            "\tOPTIONAL MATCH (l:User)-[:LIKED]->(publication)\n" +
+            "\tRETURN COUNT(l) as likes\n" +
+            "}\n" +
+
+            "CALL {\n" +
+            "\tWITH publication\n" +
+            "\tOPTIONAL MATCH (c:Comment)-[:IS_ATTACHED_TO]->(publication)\n" +
+            "\tRETURN COUNT(c) as comments\n" +
+            "}\n" +
+
+            "CALL {\n" +
+            "\tWITH publication\n" +
+            "\tRETURN EXISTS((:User {id: $callerId })-[:LIKED]->(publication)) as isLiked\n" +
+            "}\n" +
+
+            "RETURN publication, publisher, likes, comments, isLiked",
             { id: request.id, callerId: request.callerId }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })

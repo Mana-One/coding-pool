@@ -40,7 +40,7 @@ export class GetUserTimelineUsecase {
                 "\tRETURN EXISTS((:User {id: $callerId })-[:LIKED]->(publication)) as isLiked\n" +
                 "}\n" +
                 
-                "RETURN publication, user, likes, comments\n" + 
+                "RETURN publication, user, likes, comments, isLiked\n" + 
                 "ORDER BY publication.createdAt DESC\n" + 
                 "SKIP $offset LIMIT $limit",
                 { userId: request.userId, limit: int(request.limit), offset: int(request.offset), callerId: request.callerId }
