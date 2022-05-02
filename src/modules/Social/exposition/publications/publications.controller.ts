@@ -3,7 +3,6 @@ import { CreatePublicationRequest } from "./create-publication.request";
 import { PageResponse } from "../../../../kernel/PageResponse";
 import { AppConfig } from "../../../../config/app.config";
 import { PageRequest } from "../../../../kernel/PageRequest";
-import { Public } from "../../../auth/public.decorator";
 import { CreatePublicationUsecase } from "../../application/publications/create-publication/create-publication.usecase";
 import { GetUserTimelineUsecase } from "../../application/publications/get-user-timeline/get-user-timeline.usecase";
 import { GetHomeTimelineUsecase } from "../../application/publications/get-home-timeline/get-home-timeline.usecase";
@@ -58,7 +57,6 @@ export class PublicationsController {
         return new PageResponse(page, new URL(request.baseUrl + request.path, this.appConfig.HOST));
     }
 
-    @Public()
     @Get("timeline/:userId")
     async getUserTimeline(
         @Req() request, 
