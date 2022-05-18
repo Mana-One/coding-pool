@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Param, Post, Query, Req } from "@nestjs/common";
 import { AppConfig } from "../../../../config/app.config";
 import { PageResponse } from "../../../../kernel/PageResponse";
-import { Public } from "../../../UserAccess/auth/public.decorator";
+import { Public } from "../../../../kernel/public.decorator";
 import { FollowUserUsecase } from "../../application/users/follow-user/follow-user.usecase";
 import { GetUserUsecase } from "../../application/users/get-user/get-user.usecase";
 import { SearchUsersUsecase } from "../../application/users/search-users/search-users.usecase";

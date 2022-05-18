@@ -4,7 +4,7 @@ import { none, some } from "fp-ts/lib/Option";
 import { mock } from "jest-mock-extended";
 import { UID } from "../../src/kernel/UID";
 import { AccountService } from "../../src/modules/UserAccess/application/account.service";
-import { Account } from "../../src/modules/UserAccess/domain/account.entity";
+import { Account } from "../../src/modules/UserAccess/domain/account";
 import { Accounts } from "../../src/modules/UserAccess/domain/accounts";
 import { Email } from "../../src/modules/UserAccess/domain/email";
 import { Password } from "../../src/modules/UserAccess/domain/password";

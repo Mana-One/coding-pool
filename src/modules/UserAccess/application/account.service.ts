@@ -11,7 +11,7 @@ import { UID } from "../../../kernel/UID";
 import { AccountCreated } from "../../shared-kernel/account-created.event";
 import { ACCOUNT_CREATED_EVENT } from "../../shared-kernel/constants";
 import { ACCOUNTS } from "../constants";
-import { Account } from "../domain/account.entity";
+import { Account } from "../domain/account";
 import { Accounts } from "../domain/accounts";
 import { Email } from "../domain/email";
 import { Password } from "../domain/password";

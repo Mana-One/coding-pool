@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { pipe } from "fp-ts/lib/function";
 import { map, none, some, toNullable } from "fp-ts/lib/Option";
 import { UID } from "../../../kernel/UID";
-import { Account } from "../domain/account.entity";
+import { Account } from "../domain/account";
 import { Email } from "../domain/email";
 import { Password } from "../domain/password";
 import { Role } from "../domain/role";

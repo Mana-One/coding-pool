@@ -1,7 +1,7 @@
 import { Option } from "fp-ts/lib/Option";
 import { Repository } from "../../../kernel/Repository";
 import { UID } from "../../../kernel/UID";
-import { Account } from "./account.entity";
+import { Account } from "./account";
 
 export interface Accounts extends Repository<UID, Account> {
     findByEmail(email: string): Promise<Option<Account>>;

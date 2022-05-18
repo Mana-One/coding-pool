@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { none, Option, some } from "fp-ts/lib/Option";
 import { UID } from "../../../kernel/UID";
-import { Account } from "../domain/account.entity";
+import { Account } from "../domain/account";
 import { Accounts } from "../domain/accounts";
 import { AccountMapper } from "./account.mapper";
 import { AccountModel } from "./account.model";

@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/com
 import { AppConfig } from "../../../config/app.config";
 import { PageRequest } from "../../../kernel/PageRequest";
 import { PageResponse } from "../../../kernel/PageResponse";
-import { Public } from "../../UserAccess/auth/public.decorator";
 import { CreateProgramUsecase } from "../application/create-program/create-program.usecase";
 import { GetProgramUsecase } from "../application/get-program/get-program.usecase";
 import { ListProgramsUsecase } from "../application/list-programs/list-programs.usecase";
@@ -78,7 +77,6 @@ export class ProgramsController {
         );
     }
 
-    @Public()
     @Get("portfolio")
     async getPortfolio(
         @Req() request,
@@ -90,7 +88,6 @@ export class ProgramsController {
         return new PageResponse(page, url);
     }
 
-    @Public()
     @Get(":id")
     async getProgram(@Param("id") id: string) {
         return this.getProgramUsecase.execute({ id });

@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { toNullable } from "fp-ts/lib/Option";
 import { AccountService } from "./account.service";
-import { Account } from "../domain/account.entity";
+import { Account } from "../domain/account";
 
 @Injectable()
 export class AuthService {

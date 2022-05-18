@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Put, Req } from "@nestjs/common";
-import { Public } from "../auth/public.decorator";
+import { Public } from "../../../kernel/public.decorator";
 import { AccountService } from "../application/account.service";
 import { ChangePasswordRequest } from "./ChangePasswordRequest";
 import { CreateUserRequest } from "./CreateUserRequest";
