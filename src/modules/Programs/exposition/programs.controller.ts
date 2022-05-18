@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/com
 import { AppConfig } from "../../../config/app.config";
 import { PageRequest } from "../../../kernel/PageRequest";
 import { PageResponse } from "../../../kernel/PageResponse";
-import { Public } from "../../auth/public.decorator";
+import { Public } from "../../UserAccess/auth/public.decorator";
 import { CreateProgramUsecase } from "../application/create-program/create-program.usecase";
 import { GetProgramUsecase } from "../application/get-program/get-program.usecase";
 import { ListProgramsUsecase } from "../application/list-programs/list-programs.usecase";

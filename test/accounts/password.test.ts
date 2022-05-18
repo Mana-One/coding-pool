@@ -1,5 +1,5 @@
 import { isLeft, isRight } from "fp-ts/lib/Either";
-import { Password } from "../../src/modules/accounts/domain/password";
+import { Password } from "../../src/modules/UserAccess/domain/password";
 
 describe("Password", () => {
     const basePassword = "azertyUIOP1213";

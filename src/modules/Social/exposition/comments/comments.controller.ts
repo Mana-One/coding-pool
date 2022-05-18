@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Query, Req } from "@nestjs/
 import { CreateCommentRequest } from "./create-comment.request";
 import { CreateCommentUsecase } from "../../application/comments/create-comment/create-comment.usecase";
 import { RemoveCommentUsecase } from "../../application/comments/remove-comment/remove-comment.usecase";
-import { Public } from "../../../auth/public.decorator";
+import { Public } from "../../../UserAccess/auth/public.decorator";
 import { ListCommentsUsecase } from "../../application/comments/list-comments/list-comments.usecase";
 import { ListCommentsRequest } from "./list-comments.request";
 import { request } from "http";

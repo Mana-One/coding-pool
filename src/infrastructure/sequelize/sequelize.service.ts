@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Sequelize } from "sequelize-typescript";
-import { AccountModel } from "../../modules/accounts/infrastructure/account.model";
+import { AccountModel } from "../../modules/UserAccess/infrastructure/account.model";
 import { ProgramModel } from "../../modules/Programs/infrastructure/program.model";
 
 @Injectable()

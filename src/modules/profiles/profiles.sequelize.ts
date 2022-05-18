@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { none, Option, some } from "fp-ts/lib/Option";
-import { AccountModel } from "../accounts/infrastructure/account.model";
+import { AccountModel } from "../UserAccess/infrastructure/account.model";
 import { Profile } from "./profile.dto";
 import { Profiles } from "./profiles";
 
