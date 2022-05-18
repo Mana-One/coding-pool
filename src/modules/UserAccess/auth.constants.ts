@@ -1,1 +1,0 @@
-export const IS_PUBLIC = Symbol.for("isPublic");
