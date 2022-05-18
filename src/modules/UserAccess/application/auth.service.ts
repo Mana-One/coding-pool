@@ -23,7 +23,8 @@ export class AuthService {
         const payload = {
             sub: account.id.value,
             username: account.username,
-            wallet: toNullable(account.wallet)
+            wallet: toNullable(account.wallet),
+            role: account.role
         };
         return this.jwtService.signAsync(payload);
     }
