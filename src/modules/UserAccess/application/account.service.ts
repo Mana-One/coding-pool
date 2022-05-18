@@ -86,6 +86,25 @@ export class AccountService {
         this.eventEmitter.emit(ACCOUNT_CREATED_EVENT, new AccountCreated(account.id.value, account.username));
     }
 
+    async registerAdmin(username: string, email: string, password: string): Promise<void> {
+        const result = pipe(
+            sequenceS(cumulativeValidation)({
+                username: this.checkUsername(username),
+                email: Email.create(email),
+                password: Password.fromClear(password)
+            }),
+            map(props => Account.createAdmin({
+                ...props,
+                wallet: none
+            }))
+        );
+        if (isLeft(result)) {
+            throw new BadRequestException(result.left.join("\n"));
+        }
+        const account = result.right;
+        await this.accounts.save(account);
+    }
+
 
 
     private async retrieveAccount(id: string): Promise<Account> {

@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put, Req } from "@nestjs/common";
 import { Public } from "../../../kernel/public.decorator";
+import { Roles } from "../../../kernel/roles.decorator";
 import { AccountService } from "../application/account.service";
 import { ChangePasswordRequest } from "./ChangePasswordRequest";
 import { CreateUserRequest } from "./CreateUserRequest";
@@ -20,6 +21,12 @@ export class AccountsController {
     @Post("register")
     async register(@Body() body: CreateUserRequest) {
         await this.service.register(body.username, body.email, body.password);
+    }
+
+    @Roles("admin")
+    @Post("register/admin")
+    async registerAdmin(@Body() body: CreateUserRequest) {
+        await this.service.registerAdmin(body.username, body.email, body.password);
     }
 
     @Put("me/password")

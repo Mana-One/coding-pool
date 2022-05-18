@@ -18,7 +18,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         return { 
             accountId: payload.sub, 
             username: payload.username, 
-            wallet: payload.wallet 
+            wallet: payload.wallet,
+            role: payload.role
         };
     }
 }

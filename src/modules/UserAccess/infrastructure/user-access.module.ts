@@ -9,6 +9,7 @@ import { ProfileService } from "../application/profile.service";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { JwtStrategy } from "../auth/jwt.strategy";
 import { LocalStrategy } from "../auth/local.strategy";
+import { RolesGuard } from "../auth/roles.guard";
 import { ACCOUNTS } from "../constants";
 import { AccountsController } from "../exposition/accounts.controller";
 import { AuthController } from "../exposition/auth.controller";
@@ -23,6 +24,10 @@ const authProviders = [
     {
         provide: "APP_GUARD",
         useClass: JwtAuthGuard
+    },
+    {
+        provide: "APP_GUARD",
+        useClass: RolesGuard
     }
 ];
 const accountProviders = [
