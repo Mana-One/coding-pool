@@ -9,6 +9,7 @@
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "tsc --project ./tsconfig.build.json",
+    "migration": "sequelize-cli db:create; sequelize-cli db:migrate && sequelize-cli db:seed:all",
     "start": "node ./dist/main.js",
     "start:local": "ts-node ./src/main.ts",
     "test": "jest"
@@ -52,6 +53,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
     "sequelize": "^6.17.0",
+    "sequelize-cli": "^6.4.1",
     "sequelize-typescript": "^2.1.3",
     "uuid": "^8.3.2",
     "web3": "^1.7.1"
