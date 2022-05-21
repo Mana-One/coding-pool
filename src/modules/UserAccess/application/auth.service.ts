@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { toNullable } from "fp-ts/lib/Option";
 import { AccountService } from "./account.service";
 import { Account } from "../domain/account";
 
@@ -23,7 +22,6 @@ export class AuthService {
         const payload = {
             sub: account.id.value,
             username: account.username,
-            wallet: toNullable(account.wallet),
             role: account.role.name
         };
         return this.jwtService.signAsync(payload);

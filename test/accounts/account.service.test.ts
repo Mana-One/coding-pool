@@ -22,7 +22,6 @@ describe("Account service", () => {
         username: "username",
         email: Email.of("some email"),
         password: Password.of(bcrypt.hashSync("azertyUIOP123", 10)),
-        wallet: none,
         role: Role.USER
     });
 
@@ -68,7 +67,7 @@ describe("Account service", () => {
 
     describe("edit", () => {
         it("should return void", async () => {
-            await expect(service.edit(mockId.value, "username", null, "username@example.com"))
+            await expect(service.edit(mockId.value, "username", "username@example.com"))
                 .resolves
                 .toBeUndefined();
         });
@@ -76,13 +75,13 @@ describe("Account service", () => {
         it("should throw a NotFoundException when the account does not exist", async () => {
             accounts.findById.mockResolvedValueOnce(none);
 
-            await expect(service.edit(mockId.value, "username", null, "username@example.com"))
+            await expect(service.edit(mockId.value, "username", "username@example.com"))
                 .rejects
                 .toBeInstanceOf(NotFoundException);
         });
 
         it("should throw a BadRequestException when the input is invalid", async () => {
-            await expect(service.edit(mockId.value, "", null, "username@example"))
+            await expect(service.edit(mockId.value, "", "username@example"))
                 .rejects
                 .toBeInstanceOf(BadRequestException);
         });

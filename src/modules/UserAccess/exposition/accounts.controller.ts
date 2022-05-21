@@ -42,6 +42,6 @@ export class AccountsController {
         @Req() request,
         @Body() body: EditAccountRequest
     ) {
-        await this.service.edit(request.user.accountId, body.username, body.wallet, body.email);
+        await this.service.edit(request.user.accountId, body.username, body.email);
     }
 }

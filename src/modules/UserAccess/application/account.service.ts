@@ -15,7 +15,6 @@ import { Account } from "../domain/account";
 import { Accounts } from "../domain/accounts";
 import { Email } from "../domain/email";
 import { Password } from "../domain/password";
-import { Wallet } from "../domain/wallet";
 
 @Injectable()
 export class AccountService {
@@ -38,12 +37,11 @@ export class AccountService {
         await this.accounts.save(account);
     }
 
-    async edit(id: string, username: string, wallet: string | null, email: string): Promise<void> {
+    async edit(id: string, username: string, email: string): Promise<void> {
         const account = await this.retrieveAccount(id);
         const result = pipe(
             sequenceS(cumulativeValidation)({
                 username: this.checkUsername(username),
-                wallet: this.checkWallet(wallet),
                 email: Email.create(email)
             }),
             map(props => account.editAccount(props))
@@ -73,10 +71,7 @@ export class AccountService {
                 email: Email.create(email),
                 password: Password.fromClear(password)
             }),
-            map(props => Account.createUser({
-                ...props,
-                wallet: none
-            }))
+            map(props => Account.createUser(props))
         );
         if (isLeft(result)) {
             throw new BadRequestException(result.left.join("\n"));
@@ -93,10 +88,7 @@ export class AccountService {
                 email: Email.create(email),
                 password: Password.fromClear(password)
             }),
-            map(props => Account.createAdmin({
-                ...props,
-                wallet: none
-            }))
+            map(props => Account.createAdmin(props))
         );
         if (isLeft(result)) {
             throw new BadRequestException(result.left.join("\n"));
@@ -121,15 +113,5 @@ export class AccountService {
 
     private checkUsername(username: string): Either<NonEmptyArray<string>, string> {
         return StringUtils.minLength(1, "Username is empty")(username);
-    }
-
-    private checkWallet(wallet: string | null): Either<NonEmptyArray<string>, Option<Wallet>> {
-        if (wallet === null) {
-            return right(none);
-        }
-        return pipe(
-            Wallet.fromString(wallet),
-            map(some)
-        );
     }
 }

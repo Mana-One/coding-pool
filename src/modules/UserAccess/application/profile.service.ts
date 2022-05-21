@@ -14,7 +14,6 @@ export class ProfileService {
         return {
             id: instance.id,
             username: instance.username,
-            wallet: instance.wallet,
             email: instance.email,
             role: instance.role
         };

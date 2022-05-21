@@ -3,15 +3,14 @@ import { AllowNull, Column, DataType, Model, PrimaryKey, Table, Unique } from "s
 interface AccountProps {
     id: string
     username: string 
-    wallet: string | null
     email: string
     password: string | null
     role: string
 }
 
 @Table({
-    modelName: "Account",
-    tableName: "Account",
+    modelName: "accounts",
+    tableName: "accounts",
     timestamps: false
 })
 export class AccountModel extends Model<AccountProps> {
@@ -24,9 +23,6 @@ export class AccountModel extends Model<AccountProps> {
     @AllowNull(false)
     @Column
     username: string;
-
-    @Column(DataType.STRING)
-    wallet: string | null;
 
     @Unique
     @AllowNull(false)

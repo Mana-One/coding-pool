@@ -4,12 +4,10 @@ import { UID } from "../../../kernel/UID";
 import { Email } from "./email";
 import { Password } from "./password";
 import { Role } from "./role";
-import { Wallet } from "./wallet";
 
 interface AccountProps {
     id: UID
-    username: string 
-    wallet: Option<Wallet>
+    username: string
     email: Email
     password: Password
     role: Role
@@ -17,11 +15,10 @@ interface AccountProps {
 
 type AccountEntityProps = Omit<AccountProps, "id">;
 type AccountCreation = Omit<AccountProps, "id" | "role">;
-type AccountEdition = Pick<AccountProps, "username" | "wallet" | "email">;
+type AccountEdition = Pick<AccountProps, "username" | "email">;
 
 export class Account extends Entity<UID, AccountEntityProps> {
     get username(): string { return this.props.username; }
-    get wallet(): Option<Wallet> { return this.props.wallet; }
     get email(): Email { return this.props.email; }
     get password(): Password { return this.props.password; }
     get role(): Role { return this.props.role; }
@@ -32,7 +29,6 @@ export class Account extends Entity<UID, AccountEntityProps> {
 
     editAccount(props: AccountEdition): void {
         this.props.username = props.username;
-        this.props.wallet = props.wallet;
         this.props.email = props.email;
     }
 
