@@ -1,13 +1,14 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import * as E from "fp-ts/lib/Either";
 import { Usecase } from "../../../../../kernel/Usecase";
+import { COMPETITIONS } from "../../../constants";
 import { Competition } from "../../../domain/competitions/competition";
 import { Competitions } from "../../../domain/competitions/competitions";
 import { CreateCompetitionCommand } from "./create-competition.command";
 
 @Injectable()
 export class CreateCompetitionUsecase implements Usecase<CreateCompetitionCommand, void> {
-    constructor(private readonly competitions: Competitions) {}
+    constructor(@Inject(COMPETITIONS) private readonly competitions: Competitions) {}
 
     async execute(request: CreateCompetitionCommand): Promise<void> {
         const [start, end] = [request.startDate, request.endDate]

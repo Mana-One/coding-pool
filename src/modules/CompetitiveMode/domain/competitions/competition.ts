@@ -59,4 +59,8 @@ export class Competition extends Entity<UID, CompetitionAttributes> {
             E.mapLeft(InvalidCompetition.fromMessages)
         )
     }
+    
+    static of(props: CompetitionProps): Competition {
+        return new Competition(props.id, props);
+    }
 }
