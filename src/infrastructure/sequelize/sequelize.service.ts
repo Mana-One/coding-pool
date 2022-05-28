@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Sequelize } from "sequelize-typescript";
 import { AccountModel } from "../../modules/UserAccess/infrastructure/account.model";
 import { ProgramModel } from "../../modules/Programs/infrastructure/program.model";
+import { CompetitionModel } from "../../modules/CompetitiveMode/infrastructure/competitions/competition.model";
 
 @Injectable()
 export class SequelizeService {
@@ -22,7 +23,7 @@ export class SequelizeService {
             logging: false
         });
 
-        sequelize.addModels([AccountModel, ProgramModel]);
+        sequelize.addModels([AccountModel, ProgramModel, CompetitionModel]);
         return new SequelizeService(sequelize);
     }
 }
