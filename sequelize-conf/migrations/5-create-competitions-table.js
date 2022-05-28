@@ -30,7 +30,7 @@ module.exports = {
                 type: Sequelize.DataTypes.STRING,
                 allowNull: false
             },
-            stdout: {
+            expectedStdout: {
                 type: Sequelize.DataTypes.STRING,
                 allowNull: false
             }
