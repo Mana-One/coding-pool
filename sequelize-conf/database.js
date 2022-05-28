@@ -11,7 +11,8 @@ module.exports = {
         require: true,
         rejectUnauthorized: false
       }
-    }
+    },
+    seederStorage: "sequelize"
   },
   production: {
     url: process.env.DATABASE_URL,
@@ -25,6 +26,7 @@ module.exports = {
         require: true,
         rejectUnauthorized: false
       }
-    }
+    },
+    seederStorage: "sequelize"
   }
 }
