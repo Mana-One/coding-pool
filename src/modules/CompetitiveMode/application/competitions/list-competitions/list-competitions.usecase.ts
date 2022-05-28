@@ -9,9 +9,9 @@ import { ListCompetitionsQuery } from "./list-competitions.query";
 export class ListCompetitonsUsecase implements Usecase<ListCompetitionsQuery, CompetitionList> {
     async execute(request: ListCompetitionsQuery): Promise<CompetitionList> {
         switch(request.status) {
-            case "scheduled":
-                return this.listCurrentCompetitions(request);
             case "current":
+                return this.listCurrentCompetitions(request);
+            case "scheduled":
                 return this.listFutureCompetitions(request);
             case "ended":
                 return this.listPastCompetitions(request);
