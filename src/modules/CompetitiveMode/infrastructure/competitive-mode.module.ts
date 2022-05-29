@@ -3,13 +3,14 @@ import { CreateCompetitionUsecase } from "../application/competitions/create-com
 import { GetPublicCompetitionDetailsUsecase } from "../application/competitions/get-public-competition-details/get-public-competition-details.usecase";
 import { ListCompetitonsUsecase } from "../application/competitions/list-competitions/list-competitions.usecase";
 import { CreateSubmissionUsecase } from "../application/submissions/create-submission/create-submission.usecase";
-import { CODE_JUDGE, COMPETITIONS } from "../constants";
+import { CODE_JUDGE, COMPETITIONS, SUBMISSIONS } from "../constants";
 import { CompetitionsController } from "../exposition/competitions/competitions.controller";
 import { SubmissionsController } from "../exposition/submissions/submissions.controller";
 import { CompetitionMapper } from "./competitions/competition.mapper";
 import { InMemoryCompetitions } from "./competitions/in-memory.competitions";
 import { SequelizeCompetitions } from "./competitions/sequelize.competitions";
 import { Judg0Gateway } from "./submissions/judge0-gateway";
+import { SequelizeSubmissions } from "./submissions/sequelize.submisions";
 
 const competitionProviders = [
     CreateCompetitionUsecase,
@@ -27,7 +28,12 @@ const submissionProviders = [
     {
         provide: CODE_JUDGE,
         useClass: Judg0Gateway
-    }]
+    }, 
+    {
+        provide: SUBMISSIONS,
+        useClass: SequelizeSubmissions
+    }
+]
 
 @Module({
     providers: [...competitionProviders, ...submissionProviders],
