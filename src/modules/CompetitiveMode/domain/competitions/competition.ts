@@ -33,6 +33,10 @@ export class Competition extends Entity<UID, CompetitionAttributes> {
     get stdin(): string { return this.props.stdin; }
     get expectedStdout(): string { return this.props.expectedStdout; }
 
+    isCurrent(now: Date): boolean {
+        return now.getTime() <= this.startDate.getTime() && this.endDate.getTime() <= now.getTime();
+    }
+
     static createCompetition(props: {
         title: string 
         description: string 
