@@ -5,6 +5,7 @@ import { ListCompetitonsUsecase } from "../application/competitions/list-competi
 import { CreateSubmissionUsecase } from "../application/submissions/create-submission/create-submission.usecase";
 import { CODE_JUDGE, COMPETITIONS } from "../constants";
 import { CompetitionsController } from "../exposition/competitions/competitions.controller";
+import { SubmissionsController } from "../exposition/submissions/submissions.controller";
 import { CompetitionMapper } from "./competitions/competition.mapper";
 import { InMemoryCompetitions } from "./competitions/in-memory.competitions";
 import { SequelizeCompetitions } from "./competitions/sequelize.competitions";
@@ -30,6 +31,6 @@ const submissionProviders = [
 
 @Module({
     providers: [...competitionProviders, ...submissionProviders],
-    controllers: [CompetitionsController]
+    controllers: [CompetitionsController, SubmissionsController]
 })
 export class CompetitiveModeModule {}
