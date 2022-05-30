@@ -22,7 +22,7 @@ export class SubmissionsController {
         @Body() body: CreateSubmissionRequest
     ) {
         const user = request.user;
-        await this.createSubmissionUsecase.execute({
+        return await this.createSubmissionUsecase.execute({
             competitionId,
             participantId: user.accountId,
             participant: user.username,
