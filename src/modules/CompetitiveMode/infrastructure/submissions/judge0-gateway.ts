@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import axios from "axios";
 import { AppConfig } from "../../../../config/app.config";
 import { Judge0Config } from "../../../../config/judge0.config";
@@ -11,7 +11,7 @@ export class Judg0Gateway implements CodeJudge {
         private readonly appConfig: AppConfig
     ) {}
 
-    async send(input: { competitionId: string; participantId: string; participant: string; source_code: string; stdin: string; expectedStdout: string; }): Promise<{ token: string; }> {
+    async send(input: { competitionId: string; participantId: string; participant: string; language_id: number, source_code: string; stdin: string; expectedStdout: string; }): Promise<{ token: string; }> {
         const callbackUrl = new URL("/submissions", this.appConfig.HOST);
         callbackUrl.searchParams.set("competitionId", input.competitionId);
         callbackUrl.searchParams.set("participantId", input.participantId);
@@ -19,16 +19,15 @@ export class Judg0Gateway implements CodeJudge {
         
         const response = await axios({
             method: "post",
-            url: "/submissions",
-            baseURL: this.judge0Config.URL,
+            url: this.judge0Config.URL + "submissions",
             data: {
                 source_code: input.source_code,
+                language_id: input.language_id,
                 stdin: input.stdin,
                 expectedStdout: input.expectedStdout,
                 callback_url: callbackUrl.toString()
             }
         });
-
         return response.data;
     }
 }

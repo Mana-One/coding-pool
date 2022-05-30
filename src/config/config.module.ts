@@ -34,6 +34,6 @@ import { Judge0Config } from "./judge0.config";
         provide: Judge0Config,
         useValue: new Judge0Config(get("JUDGE0_URL").required().asUrlString())
     }],
-    exports: [AppConfig, DbConfig, Neo4jConfig]
+    exports: [AppConfig, DbConfig, Neo4jConfig, Judge0Config]
 })
 export class ConfigModule {}

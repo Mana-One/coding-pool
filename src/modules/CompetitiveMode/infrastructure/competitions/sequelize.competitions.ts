@@ -1,5 +1,6 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { Option } from "fp-ts/lib/Option";
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
+import { TransformInstanceToInstance } from "class-transformer";
+import * as O from "fp-ts/lib/Option";
 import { UID } from "../../../../kernel/UID";
 import { Competition } from "../../domain/competitions/competition";
 import { Competitions } from "../../domain/competitions/competitions";
@@ -10,12 +11,30 @@ import { CompetitionModel } from "./competition.model";
 export class SequelizeCompetitions implements Competitions {
     constructor(private readonly mapper: CompetitionMapper) {}
 
-    findById(id: UID): Promise<Option<Competition>> {
-        throw new Error("Method not implemented.");
+    async findById(id: UID): Promise<O.Option<Competition>> {
+        const instance = await CompetitionModel.findByPk(id.value)
+            .catch(err => { throw new InternalServerErrorException(String(err)); });
+        if (instance === null) {
+            return O.none;
+        }
+        return O.some(this.toDomain(instance));
     }
 
     async save(entity: Competition): Promise<void> {
         await CompetitionModel.upsert(this.mapper.toPersistence(entity))
             .catch(err => { throw new InternalServerErrorException(String(err)); });
+    }
+
+    private toDomain(instance: CompetitionModel): Competition {
+        return Competition.of({
+            id: UID.of(instance.id),
+            title: instance.title,
+            description: instance.description,
+            startDate: instance.startDate,
+            endDate: instance.endDate,
+            languageId: instance.languageId,
+            stdin: instance.stdin,
+            expectedStdout: instance.expectedStdout 
+        });
     }
 }
