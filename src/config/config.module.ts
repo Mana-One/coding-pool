@@ -6,6 +6,7 @@ import { get } from "env-var";
 import { AppConfig } from "./app.config";
 import { DbConfig } from "./db.config";
 import { Neo4jConfig } from "./neo4j.config";
+import { Judge0Config } from "./judge0.config";
 
 @Global()
 @Module({
@@ -24,12 +25,15 @@ import { Neo4jConfig } from "./neo4j.config";
         )
     }, {
         provide: Neo4jConfig,
-        useFactory: () => new Neo4jConfig(
+        useValue: new Neo4jConfig(
             get("NEO4J_URL").required().asUrlString(),
             get("NEO4J_USER").required().asString(),
             get("NEO4J_PASSWORD").required().asString()
         )
+    }, {
+        provide: Judge0Config,
+        useValue: new Judge0Config(get("JUDGE0_URL").required().asUrlString())
     }],
-    exports: [AppConfig, DbConfig, Neo4jConfig]
+    exports: [AppConfig, DbConfig, Neo4jConfig, Judge0Config]
 })
 export class ConfigModule {}
