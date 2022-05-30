@@ -24,7 +24,7 @@ export class Judg0Gateway implements CodeJudge {
                 source_code: input.source_code,
                 language_id: input.language_id,
                 stdin: input.stdin,
-                expectedStdout: input.expectedStdout,
+                expected_output: input.expectedStdout,
                 callback_url: callbackUrl.toString()
             }
         });
