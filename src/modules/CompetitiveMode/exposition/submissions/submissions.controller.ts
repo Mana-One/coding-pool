@@ -40,7 +40,7 @@ export class SubmissionsController {
             competitionId: query.competitionId,
             participantId: query.participantId,
             participant: query.participant,
-            passed: body.status.id === 3 && body.stdout === body.expected_output,
+            passed: body.status.id === 3,
             time: body.time
         });
     }

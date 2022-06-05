@@ -10,7 +10,8 @@ interface SubmissionProps {
 
 @Table({
     modelName: "submissions",
-    tableName: "submissions"
+    tableName: "submissions",
+    timestamps: false
 })
 export class SubmissionModel extends Model<SubmissionProps> {
     @PrimaryKey

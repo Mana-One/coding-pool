@@ -8,6 +8,7 @@ import { ReceiveSubmissionCommand } from "./receive-submission.command";
 
 @Injectable()
 export class ReceiveSubmissionUsecase implements Usecase<ReceiveSubmissionCommand, void> {
+
     constructor(@Inject(SUBMISSIONS) private readonly submissions: Submissions) {}
 
     async execute(request: ReceiveSubmissionCommand): Promise<void> {
