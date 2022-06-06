@@ -1,6 +1,6 @@
 export class AccountModified {
     constructor(
-        readonly id: string,
+        readonly userId: string,
         readonly username: string,
         readonly email: string
     ) {}
