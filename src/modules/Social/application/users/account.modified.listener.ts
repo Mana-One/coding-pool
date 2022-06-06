@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
 import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
-import { AccountModified } from "../../../shared-kernel/account-modified.Event";
+import { AccountModified } from "../../../shared-kernel/account-modified.event";
 import { ACCOUNT_MODIFIED_EVENT } from "../../../shared-kernel/constants";
 
 @Injectable()
