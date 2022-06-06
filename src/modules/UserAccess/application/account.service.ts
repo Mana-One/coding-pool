@@ -9,7 +9,7 @@ import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { StringUtils } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
 import { AccountCreated } from "../../shared-kernel/account-created.event";
-import { AccountModified } from "../../shared-kernel/account-modified.Event";
+import { AccountModified } from "../../shared-kernel/account-modified.event";
 import { ACCOUNT_CREATED_EVENT, ACCOUNT_MODIFIED_EVENT } from "../../shared-kernel/constants";
 import { ACCOUNTS } from "../constants";
 import { Account } from "../domain/account";
@@ -54,7 +54,7 @@ export class AccountService {
         await this.accounts.save(account);
 
         if (account.role.equals(Role.ADMIN)) { return; }
-        
+
         this.eventEmitter.emit(
             ACCOUNT_MODIFIED_EVENT, 
             new AccountModified(account.id.value, account.username, account.email.value)
