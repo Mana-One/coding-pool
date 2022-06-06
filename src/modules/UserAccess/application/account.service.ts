@@ -1,20 +1,22 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { sequenceS } from "fp-ts/lib/Apply";
-import { Either, isLeft, map, right } from "fp-ts/lib/Either";
+import { Either, isLeft, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { isNone, none, Option, some } from "fp-ts/lib/Option";
+import { isNone } from "fp-ts/lib/Option";
 import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { StringUtils } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
 import { AccountCreated } from "../../shared-kernel/account-created.event";
-import { ACCOUNT_CREATED_EVENT } from "../../shared-kernel/constants";
+import { AccountModified } from "../../shared-kernel/account-modified.event";
+import { ACCOUNT_CREATED_EVENT, ACCOUNT_MODIFIED_EVENT } from "../../shared-kernel/constants";
 import { ACCOUNTS } from "../constants";
 import { Account } from "../domain/account";
 import { Accounts } from "../domain/accounts";
 import { Email } from "../domain/email";
 import { Password } from "../domain/password";
+import { Role } from "../domain/role";
 
 @Injectable()
 export class AccountService {
@@ -50,6 +52,13 @@ export class AccountService {
             throw new BadRequestException(result.left.join("\n"));
         }
         await this.accounts.save(account);
+
+        if (account.role.equals(Role.ADMIN)) { return; }
+
+        this.eventEmitter.emit(
+            ACCOUNT_MODIFIED_EVENT, 
+            new AccountModified(account.id.value, account.username, account.email.value)
+        );
     }
 
     async findOne(email: string): Promise<Account> {

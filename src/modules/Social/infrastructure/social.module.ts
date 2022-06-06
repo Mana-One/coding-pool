@@ -21,6 +21,7 @@ import { ProgramCreatedListener } from "../application/users/program-created.lis
 import { GetHomeTimelineUsecase } from "../application/publications/get-home-timeline/get-home-timeline.usecase";
 import { GetPublicationUsecase } from "../application/publications/get-publication/get-publication.usecase";
 import { SearchUsersUsecase } from "../application/users/search-users/search-users.usecase";
+import { AccountModifiedListener } from "../application/users/account.modified.listener";
 
 const usersProviders = [
     GetUserUsecase, 
@@ -28,7 +29,8 @@ const usersProviders = [
     FollowUserUsecase, 
     UnfollowUserUsecase, 
     ProgramCreatedListener,
-    SearchUsersUsecase
+    SearchUsersUsecase,
+    AccountModifiedListener
 ];
 const publicationsProviders = [
     CreatePublicationUsecase,
