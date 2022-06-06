@@ -9,7 +9,8 @@ import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { StringUtils } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
 import { AccountCreated } from "../../shared-kernel/account-created.event";
-import { ACCOUNT_CREATED_EVENT } from "../../shared-kernel/constants";
+import { AccountModified } from "../../shared-kernel/account-modified.Event";
+import { ACCOUNT_CREATED_EVENT, ACCOUNT_MODIFIED_EVENT } from "../../shared-kernel/constants";
 import { ACCOUNTS } from "../constants";
 import { Account } from "../domain/account";
 import { Accounts } from "../domain/accounts";
@@ -50,6 +51,10 @@ export class AccountService {
             throw new BadRequestException(result.left.join("\n"));
         }
         await this.accounts.save(account);
+        this.eventEmitter.emit(
+            ACCOUNT_MODIFIED_EVENT, 
+            new AccountModified(account.id.value, account.username, account.email.value)
+        );
     }
 
     async findOne(email: string): Promise<Account> {
