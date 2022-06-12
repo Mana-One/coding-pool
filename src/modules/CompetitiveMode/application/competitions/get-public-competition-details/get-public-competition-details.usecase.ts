@@ -1,8 +1,9 @@
-import { InternalServerErrorException, NotFoundException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { Usecase } from "../../../../../kernel/Usecase";
 import { CompetitionModel } from "../../../infrastructure/competitions/competition.model";
 import { PublicCompetitionDetails } from "./public-competition-details.dto";
 
+@Injectable()
 export class GetPublicCompetitionDetailsUsecase implements Usecase<string, PublicCompetitionDetails> {
     async execute(request: string): Promise<PublicCompetitionDetails> {
         const row = await CompetitionModel.findByPk(request, {

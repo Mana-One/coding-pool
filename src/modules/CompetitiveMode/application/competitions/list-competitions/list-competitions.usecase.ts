@@ -1,4 +1,4 @@
-import { BadRequestException, InternalServerErrorException } from "@nestjs/common";
+import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Op } from "sequelize";
 import { Usecase } from "../../../../../kernel/Usecase";
 import { CompetitionModel } from "../../../infrastructure/competitions/competition.model";
@@ -6,6 +6,7 @@ import { CompetitionList } from "./competition-list";
 import { CompetitionDto } from "./competition.dto";
 import { ListCompetitionsQuery } from "./list-competitions.query";
 
+@Injectable()
 export class ListCompetitonsUsecase implements Usecase<ListCompetitionsQuery, CompetitionList> {
     async execute(request: ListCompetitionsQuery): Promise<CompetitionList> {
         switch(request.status) {
