@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { CreateCompetitionUsecase } from "../application/competitions/create-competition/create-competition.usecase";
+import { GetLeaderboardsUsecase } from "../application/submissions/get-leaderboards/get-leaderboards.usecase";
 import { GetPublicCompetitionDetailsUsecase } from "../application/competitions/get-public-competition-details/get-public-competition-details.usecase";
 import { ListCompetitonsUsecase } from "../application/competitions/list-competitions/list-competitions.usecase";
 import { CreateSubmissionUsecase } from "../application/submissions/create-submission/create-submission.usecase";
@@ -27,6 +28,7 @@ const competitionProviders = [
 const submissionProviders = [
     CreateSubmissionUsecase,
     ReceiveSubmissionUsecase,
+    GetLeaderboardsUsecase,
     {
         provide: CODE_JUDGE,
         useClass: Judg0Gateway

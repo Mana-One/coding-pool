@@ -1,10 +1,11 @@
-import { InternalServerErrorException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Usecase } from "../../../../../kernel/Usecase";
 import { SubmissionModel } from "../../../infrastructure/submissions/submission.model";
 import { GetLeaderboardsQuery } from "./get-leaderboards.query";
 import { Leaderboards } from "./leaderboards";
 import { LeaderboardsEntryDto } from "./leaderboards-entry.dto";
 
+@Injectable()
 export class GetLeaderboardsUsecase implements Usecase<GetLeaderboardsQuery, Leaderboards> {
     async execute(request: GetLeaderboardsQuery): Promise<Leaderboards> {
         return await SubmissionModel.findAndCountAll({
