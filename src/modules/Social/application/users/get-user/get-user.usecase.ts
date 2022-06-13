@@ -13,7 +13,7 @@ export class GetUserUsecase {
             "MATCH (user:User { id: $userId })\n" +
             "OPTIONAL MATCH (follower:User)-[:FOLLOWS]->(user)\n" +
             "OPTIONAL MATCH (user)-[:FOLLOWS]->(followee:User)\n" +
-            "RETURN user, COUNT(follower) as followers, COUNT(followee) as following",
+            "RETURN user, COUNT(DISTINCT(follower)) as followers, COUNT(DISTINCT(followee)) as following",
             { userId: request.userId }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
