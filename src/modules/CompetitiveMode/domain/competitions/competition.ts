@@ -6,11 +6,13 @@ import { Entity } from "../../../../kernel/Entity";
 import { cumulativeValidation } from "../../../../kernel/FpUtils";
 import { StringUtils } from "../../../../kernel/StringUtils";
 import { UID } from "../../../../kernel/UID";
+import { CompetitionStatus } from "./competition-status";
 import { InvalidCompetition } from "./errors";
 
 interface CompetitionProps {
     id: UID 
     title: string 
+    status: CompetitionStatus
     description: string 
     startDate: Date 
     endDate: Date
@@ -26,6 +28,7 @@ export class Competition extends Entity<UID, CompetitionAttributes> {
     private static readonly FSHARP_ID = 20;
 
     get title(): string { return this.props.title; }
+    get status(): CompetitionStatus { return this.props.status; }
     get description(): string { return this.props.description; }
     get startDate(): Date { return this.props.startDate; }
     get endDate(): Date { return this.props.endDate; }
@@ -49,6 +52,7 @@ export class Competition extends Entity<UID, CompetitionAttributes> {
         return pipe(
             sequenceS(cumulativeValidation)({
                 title: StringUtils.minLength(1, "Invalid title")(props.title), 
+                status: E.of(CompetitionStatus.IN_PROGRESS),
                 description: StringUtils.minLength(1, "Invalid description")(props.description),
                 startDate: E.of(props.startDate),
                 endDate: E.of(props.endDate),
