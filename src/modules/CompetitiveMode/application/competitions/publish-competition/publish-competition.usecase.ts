@@ -1,15 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
 import { UID } from "../../../../../kernel/UID";
 import { Usecase } from "../../../../../kernel/Usecase";
+import { COMPETITIONS } from "../../../constants";
 import { Competition } from "../../../domain/competitions/competition";
 import { Competitions } from "../../../domain/competitions/competitions";
 import { PublishCompetitionCommand } from "./publish-competition.command";
 
 @Injectable()
 export class PublishCompetitionUsecase implements Usecase<PublishCompetitionCommand, void> {
-    constructor(private readonly competitions: Competitions) {}
+    constructor(@Inject(COMPETITIONS) private readonly competitions: Competitions) {}
 
     async execute(request: PublishCompetitionCommand): Promise<void> {
         const competition = await this.fetchCompetition(request.competitionId);
