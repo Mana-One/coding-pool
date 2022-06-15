@@ -1,3 +1,4 @@
+import { BadRequestException } from "@nestjs/common";
 import { sequenceS } from "fp-ts/lib/Apply";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
@@ -38,6 +39,13 @@ export class Competition extends Entity<UID, CompetitionAttributes> {
 
     isCurrent(now: Date): boolean {
         return now.getTime() <= this.startDate.getTime() && this.endDate.getTime() <= now.getTime();
+    }
+
+    publish(): void {
+        if (this.props.status === CompetitionStatus.PUBLISHED) {
+            throw new BadRequestException("Competition already published.");
+        }
+        this.props.status = CompetitionStatus.PUBLISHED;
     }
 
     static createCompetition(props: {
