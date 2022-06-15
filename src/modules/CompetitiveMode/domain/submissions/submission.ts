@@ -34,4 +34,14 @@ export class Submission {
             E.map(args => new Submission(...args))
         );
     }
+
+    static of(props: SubmissionProps): Submission {
+        return new Submission(
+            UID.of(props.competitionId),
+            UID.of(props.participantId),
+            props.participant,
+            props.passed,
+            props.time
+        );
+    }
 }
