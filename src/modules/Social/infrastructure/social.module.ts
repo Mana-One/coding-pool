@@ -22,6 +22,8 @@ import { GetHomeTimelineUsecase } from "../application/publications/get-home-tim
 import { GetPublicationUsecase } from "../application/publications/get-publication/get-publication.usecase";
 import { SearchUsersUsecase } from "../application/users/search-users/search-users.usecase";
 import { AccountModifiedListener } from "../application/users/account.modified.listener";
+import { CompetitionEnteredListener } from "../application/users/competition-entered.listener";
+import { WinnerComputedListener } from "../application/users/winner-computed.listener";
 
 const usersProviders = [
     GetUserUsecase, 
@@ -30,8 +32,11 @@ const usersProviders = [
     UnfollowUserUsecase, 
     ProgramCreatedListener,
     SearchUsersUsecase,
-    AccountModifiedListener
+    AccountModifiedListener,
+    CompetitionEnteredListener,
+    WinnerComputedListener
 ];
+
 const publicationsProviders = [
     CreatePublicationUsecase,
     GetUserTimelineUsecase, 
@@ -40,6 +45,7 @@ const publicationsProviders = [
         provide: PUBLICATIONS,
         useClass: Neo4jPublications
 }];
+
 const commentsProviders = [
     CreateCommentUsecase,
     RemoveCommentUsecase, 
@@ -47,10 +53,11 @@ const commentsProviders = [
         provide: COMMENTS,
         useClass: Neo4jComments
 }];
+
 const likesProviders = [
     AddLikeUsecase,
     RemoveLikeUsecase
-]
+];
 
 @Module({
     providers: [...usersProviders, ...publicationsProviders, ...commentsProviders, ...likesProviders],

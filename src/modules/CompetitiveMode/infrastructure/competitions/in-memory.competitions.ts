@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { string } from "fp-ts";
 import { Option } from "fp-ts/lib/Option";
 import { UID } from "../../../../kernel/UID";
 import { Competition } from "../../domain/competitions/competition";

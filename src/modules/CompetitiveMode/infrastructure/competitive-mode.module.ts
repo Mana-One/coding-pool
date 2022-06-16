@@ -13,11 +13,13 @@ import { InMemoryCompetitions } from "./competitions/in-memory.competitions";
 import { SequelizeCompetitions } from "./competitions/sequelize.competitions";
 import { Judg0Gateway } from "./submissions/judge0-gateway";
 import { SequelizeSubmissions } from "./submissions/sequelize.submisions";
+import { PublishCompetitionUsecase } from "../application/competitions/publish-competition/publish-competition.usecase";
 
 const competitionProviders = [
     CreateCompetitionUsecase,
     ListCompetitonsUsecase,
     GetPublicCompetitionDetailsUsecase,
+    PublishCompetitionUsecase,
     CompetitionMapper,
     {
         provide: COMPETITIONS,

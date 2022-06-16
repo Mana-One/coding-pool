@@ -1,5 +1,4 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
-import { TransformInstanceToInstance } from "class-transformer";
 import * as O from "fp-ts/lib/Option";
 import { UID } from "../../../../kernel/UID";
 import { Competition } from "../../domain/competitions/competition";
@@ -17,24 +16,11 @@ export class SequelizeCompetitions implements Competitions {
         if (instance === null) {
             return O.none;
         }
-        return O.some(this.toDomain(instance));
+        return O.some(this.mapper.toDomain(instance));
     }
 
     async save(entity: Competition): Promise<void> {
         await CompetitionModel.upsert(this.mapper.toPersistence(entity))
             .catch(err => { throw new InternalServerErrorException(String(err)); });
-    }
-
-    private toDomain(instance: CompetitionModel): Competition {
-        return Competition.of({
-            id: UID.of(instance.id),
-            title: instance.title,
-            description: instance.description,
-            startDate: instance.startDate,
-            endDate: instance.endDate,
-            languageId: instance.languageId,
-            stdin: instance.stdin,
-            expectedStdout: instance.expectedStdout 
-        });
     }
 }
