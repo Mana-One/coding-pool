@@ -13,8 +13,12 @@ export class GetUserUsecase {
             "MATCH (user:User { id: $userId })\n" +
             "OPTIONAL MATCH (follower:User)-[:FOLLOWS]->(user)\n" +
             "OPTIONAL MATCH (user)-[:FOLLOWS]->(followee:User)\n" +
-            "RETURN user, COUNT(DISTINCT(follower)) as followers, COUNT(DISTINCT(followee)) as following",
-            { userId: request.userId }
+
+            "RETURN user, " + 
+            "COUNT(DISTINCT(follower)) as followers, " +
+            "COUNT(DISTINCT(followee)) as following, " +
+            "EXISTS ((:User { id: $callerId })-[:FOLLOWS]->(user)) as isFollowing",
+            { userId: request.userId, callerId: request.callerId }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
         .finally(async () => await session.close());
@@ -30,11 +34,13 @@ export class GetUserUsecase {
         const user = data.get("user");
         const followers = data.get("followers").low;
         const following = data.get("following").low;
+        const isFollowing = data.get("isFollowing");
     
         return {
             id: user.properties.id,
             username: user.properties.username,
             memberSince: Neo4jService.parseDate(user.properties.memberSince),
+            isFollowing,
             followers,
             following,
             programs: user.properties.programs.low,

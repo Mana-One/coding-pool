@@ -1,7 +1,6 @@
 import { Controller, Delete, Get, Param, Post, Query, Req } from "@nestjs/common";
 import { AppConfig } from "../../../../config/app.config";
 import { PageResponse } from "../../../../kernel/PageResponse";
-import { Public } from "../../../../kernel/public.decorator";
 import { FollowUserUsecase } from "../../application/users/follow-user/follow-user.usecase";
 import { GetUserUsecase } from "../../application/users/get-user/get-user.usecase";
 import { SearchUsersUsecase } from "../../application/users/search-users/search-users.usecase";
@@ -42,10 +41,12 @@ export class UsersController {
 
     @Get("me")
     async getSelf(@Req() request) {
-        return await this.getUserUsecase.execute({ userId: request.user.accountId });
+        return await this.getUserUsecase.execute({ 
+            userId: request.user.accountId,
+            callerId: request.user.accountId
+        });
     }
 
-    @Public()
     @Get("search")
     async searchUsers(
         @Req() request,
@@ -57,9 +58,14 @@ export class UsersController {
         return new PageResponse(page, url);
     }
 
-    @Public()
     @Get(":userId")
-    async getUser(@Param("userId") userId: string) {
-        return await this.getUserUsecase.execute({ userId });
+    async getUser(
+        @Req() request, 
+        @Param("userId") userId: string
+    ) {
+        return await this.getUserUsecase.execute({ 
+            userId,
+            callerId: request.user.accountId
+        });
     }
 }
