@@ -52,7 +52,12 @@ export class UsersController {
         @Req() request,
         @Query() query: SearchUsersRequest
     ) {
-        const page = await this.searchUsersUsecase.execute(query);
+        const page = await this.searchUsersUsecase.execute({
+            username: query.username,
+            limit: query.limit,
+            offset: query.offset,
+            callerId: request.user.accountId
+        });
         const url = new URL(request.baseUrl + request.path, this.appConfig.HOST);
         url.searchParams.set("username", query.username);
         return new PageResponse(page, url);

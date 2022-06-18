@@ -27,10 +27,11 @@ export class SearchUsersUsecase implements Usecase<SearchUsersQuery, UserList> {
 
             const row = await transaction.run(
                 "MATCH (user:User) WHERE user.username STARTS WITH $username\n" +
-                "RETURN user\n" +
+                "CALL { WITH user RETURN EXISTS ((:User { id: $callerId })-[:FOLLOWS]->(user)) as isFollowing }\n" +
+                "RETURN user, isFollowing\n" +
                 "ORDER BY user.username\n" +
                 "SKIP $offset LIMIT $limit",
-                { username: request.username, limit: int(request.limit), offset: int(request.offset) }
+                { username: request.username, limit: int(request.limit), offset: int(request.offset), callerId: request.callerId }
             );
 
             await transaction.commit();
@@ -48,7 +49,8 @@ export class SearchUsersUsecase implements Usecase<SearchUsersQuery, UserList> {
     private toDto(data: any): SingleUserDto {
         return {
             id: data.get("user").properties.id,
-            username: data.get("user").properties.username
+            username: data.get("user").properties.username,
+            isFollowing: data.get("isFollowing")
         };
     }
 }
