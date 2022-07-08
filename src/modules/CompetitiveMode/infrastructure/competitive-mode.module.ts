@@ -9,7 +9,6 @@ import { CODE_JUDGE, COMPETITIONS, SUBMISSIONS } from "../constants";
 import { CompetitionsController } from "../exposition/competitions/competitions.controller";
 import { SubmissionsController } from "../exposition/submissions/submissions.controller";
 import { CompetitionMapper } from "./competitions/competition.mapper";
-import { InMemoryCompetitions } from "./competitions/in-memory.competitions";
 import { SequelizeCompetitions } from "./competitions/sequelize.competitions";
 import { Judg0Gateway } from "./submissions/judge0-gateway";
 import { SequelizeSubmissions } from "./submissions/sequelize.submisions";
@@ -23,7 +22,7 @@ const competitionProviders = [
     CompetitionMapper,
     {
         provide: COMPETITIONS,
-        useClass: process.env.NODE_ENV === "production" ? SequelizeCompetitions : InMemoryCompetitions
+        useClass: SequelizeCompetitions
     }
 ];
 

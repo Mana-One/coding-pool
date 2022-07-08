@@ -14,7 +14,7 @@ export class WinnerComputedListener {
     async execute(event: WinnerComputed) {
         const session = this.neo4jService.startSession();
         await session.run(
-            "OPIONAL MATCH (u: User { id: $id })\n" +
+            "OPTIONAL MATCH (u: User { id: $id })\n" +
             "SET u.competitions_won = u.competitions_won + 1",
             { id: event.winnerId }
         )
