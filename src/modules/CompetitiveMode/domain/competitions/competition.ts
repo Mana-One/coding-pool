@@ -25,8 +25,8 @@ interface CompetitionProps {
 type CompetitionAttributes = Omit<CompetitionProps, "id">;
 
 export class Competition extends Entity<UID, CompetitionAttributes> {
-    private static readonly C_ID = 7;
-    private static readonly FSHARP_ID = 20;
+    private static readonly C_ID = 1;
+    private static readonly FSHARP_ID = 24;
 
     get title(): string { return this.props.title; }
     get status(): CompetitionStatus { return this.props.status; }
