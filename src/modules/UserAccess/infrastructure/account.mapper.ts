@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import * as O from "fp-ts/lib/Option";
 import { UID } from "../../../kernel/UID";
 import { Account } from "../domain/account";
 import { Email } from "../domain/email";
@@ -14,6 +15,7 @@ export class AccountMapper {
             id: entity.id.value,
             username: entity.username,
             email: entity.email.value,
+            picture: O.toNullable(entity.picture),
             password: passwordToPersist.value,
             role: entity.role.name
         };
@@ -24,6 +26,7 @@ export class AccountMapper {
             id: UID.of(instance.id),
             username: instance.username,
             email: Email.of(instance.email),
+            picture: O.fromNullable(instance.picture),
             password: Password.of(instance.password),
             role: Role.of(instance.role)
         });

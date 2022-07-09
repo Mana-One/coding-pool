@@ -6,6 +6,7 @@ export class S3Config {
         readonly ACCESS_KEY: string,
         readonly SECRET_KEY: string,
         readonly BUCKET: string,
-        readonly ENDPOINT: string
+        readonly ENDPOINT: string,
+        readonly READ_ENDPOINT: string
     ) {}
 }

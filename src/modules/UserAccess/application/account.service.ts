@@ -1,10 +1,10 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { sequenceS } from "fp-ts/lib/Apply";
-import { Either, isLeft, map } from "fp-ts/lib/Either";
+import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { isNone } from "fp-ts/lib/Option";
+import * as O from "fp-ts/lib/Option";
 import { cumulativeValidation } from "../../../kernel/FpUtils";
 import { StringUtils } from "../../../kernel/StringUtils";
 import { UID } from "../../../kernel/UID";
@@ -32,23 +32,24 @@ export class AccountService {
             throw new BadRequestException("Old password not matching, or new password and confirmation not matching.");
         }
         const password = Password.fromClear(newPassword);
-        if (isLeft(password)) {
+        if (E.isLeft(password)) {
             throw new BadRequestException("Invalid new password.");
         }
         account.changePassword(password.right);
         await this.accounts.save(account);
     }
 
-    async edit(id: string, username: string, email: string): Promise<void> {
+    async edit(id: string, username: string, email: string, picture: string | null): Promise<void> {
         const account = await this.retrieveAccount(id);
         const result = pipe(
             sequenceS(cumulativeValidation)({
                 username: this.checkUsername(username),
-                email: Email.create(email)
+                email: Email.create(email),
+                picture: E.of(O.fromNullable(picture))
             }),
-            map(props => account.editAccount(props))
+            E.map(props => account.editAccount(props))
         );
-        if (isLeft(result)) {
+        if (E.isLeft(result)) {
             throw new BadRequestException(result.left.join("\n"));
         }
         await this.accounts.save(account);
@@ -63,7 +64,7 @@ export class AccountService {
 
     async findOne(email: string): Promise<Account> {
         const account = await this.accounts.findByEmail(email);
-        if (isNone(account)) {
+        if (O.isNone(account)) {
             throw new NotFoundException("Account not found.");
         }
         return account.value;
@@ -73,16 +74,22 @@ export class AccountService {
         return this.accounts.isUsernameUsed(username);
     }
 
-    async register(username: string, email: string, password: string): Promise<void> {
+    async register(
+        username: string, 
+        email: string, 
+        picture: string | null, 
+        password: string
+    ): Promise<void> {
         const result = pipe(
             sequenceS(cumulativeValidation)({
                 username: this.checkUsername(username),
                 email: Email.create(email),
+                picture: E.of(O.fromNullable(picture)),
                 password: Password.fromClear(password)
             }),
-            map(props => Account.createUser(props))
+            E.map(props => Account.createUser(props))
         );
-        if (isLeft(result)) {
+        if (E.isLeft(result)) {
             throw new BadRequestException(result.left.join("\n"));
         }
         const account = result.right;
@@ -90,16 +97,22 @@ export class AccountService {
         this.eventEmitter.emit(ACCOUNT_CREATED_EVENT, new AccountCreated(account.id.value, account.username));
     }
 
-    async registerAdmin(username: string, email: string, password: string): Promise<void> {
+    async registerAdmin(
+        username: string, 
+        email: string, 
+        picture: string | null,
+        password: string
+    ): Promise<void> {
         const result = pipe(
             sequenceS(cumulativeValidation)({
                 username: this.checkUsername(username),
                 email: Email.create(email),
+                picture: E.of(O.fromNullable(picture)),
                 password: Password.fromClear(password)
             }),
-            map(props => Account.createAdmin(props))
+            E.map(props => Account.createAdmin(props))
         );
-        if (isLeft(result)) {
+        if (E.isLeft(result)) {
             throw new BadRequestException(result.left.join("\n"));
         }
         const account = result.right;
@@ -110,17 +123,17 @@ export class AccountService {
 
     private async retrieveAccount(id: string): Promise<Account> {
         const accountId = UID.fromString(id, "Invalid account id.");
-        if (isLeft(accountId)) {
+        if (E.isLeft(accountId)) {
             throw new BadRequestException(accountId.left[0]);
         }
         const account = await this.accounts.findById(accountId.right);
-        if (isNone(account)) {
+        if (O.isNone(account)) {
             throw new NotFoundException("Account not found.");
         }
         return account.value;
     }
 
-    private checkUsername(username: string): Either<NonEmptyArray<string>, string> {
+    private checkUsername(username: string): E.Either<NonEmptyArray<string>, string> {
         return StringUtils.minLength(1, "Username is empty")(username);
     }
 }

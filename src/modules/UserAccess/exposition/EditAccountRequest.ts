@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from "class-validator";
+import { IsEmail, IsOptional, IsString, IsUrl } from "class-validator";
 
 export class EditAccountRequest {
     @IsString()

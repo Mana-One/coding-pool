@@ -40,7 +40,8 @@ import { S3Config } from "./s3.config";
             get("S3_ACCESS_KEY").required().asString(),
             get("S3_SECRET_KEY").required().asString(),
             get("S3_BUCKET").required().asString(),
-            get("S3_ENDPOINT").required().asUrlString()
+            get("S3_ENDPOINT").required().asUrlString(),
+            get("S3_READ_ENDPOINT").required().asUrlString()
         )
     }],
     exports: [AppConfig, DbConfig, Neo4jConfig, Judge0Config, S3Config]
