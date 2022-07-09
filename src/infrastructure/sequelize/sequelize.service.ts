@@ -4,6 +4,7 @@ import { AccountModel } from "../../modules/UserAccess/infrastructure/account.mo
 import { ProgramModel } from "../../modules/Programs/infrastructure/program.model";
 import { CompetitionModel } from "../../modules/CompetitiveMode/infrastructure/competitions/competition.model";
 import { SubmissionModel } from "../../modules/CompetitiveMode/infrastructure/submissions/submission.model";
+import { LastPropositionModel } from "../../modules/CompetitiveMode/infrastructure/last-propositions/last-proposition.model";
 
 @Injectable()
 export class SequelizeService {
@@ -24,7 +25,7 @@ export class SequelizeService {
             logging: false
         });
 
-        sequelize.addModels([AccountModel, ProgramModel, CompetitionModel, SubmissionModel]);
+        sequelize.addModels([AccountModel, ProgramModel, CompetitionModel, SubmissionModel, LastPropositionModel]);
         return new SequelizeService(sequelize);
     }
 }
