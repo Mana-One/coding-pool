@@ -17,7 +17,6 @@ export class SequelizeAccounts implements Accounts {
         @InjectS3() private readonly s3: S3,
         private readonly s3Config: S3Config
     ) {
-        console.log("adding hook")
         AccountModel.afterUpdate("cleaning picture storage", (instance, _) => {
             const previousPicture = instance.previous().picture;
             const currentPicture = instance.picture;
