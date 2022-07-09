@@ -1,6 +1,7 @@
 export interface UserDto {
     id: string 
     username: string 
+    picture: string | null
     memberSince: Date 
     isFollowing: boolean
     following: number 

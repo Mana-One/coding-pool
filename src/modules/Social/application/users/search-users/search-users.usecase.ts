@@ -50,6 +50,7 @@ export class SearchUsersUsecase implements Usecase<SearchUsersQuery, UserList> {
         return {
             id: data.get("user").properties.id,
             username: data.get("user").properties.username,
+            picture: data.get("user").properties.picture || null,
             isFollowing: data.get("isFollowing")
         };
     }
