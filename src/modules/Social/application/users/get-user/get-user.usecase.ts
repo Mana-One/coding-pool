@@ -39,6 +39,7 @@ export class GetUserUsecase {
         return {
             id: user.properties.id,
             username: user.properties.username,
+            picture: user.properties.picture || null,
             memberSince: Neo4jService.parseDate(user.properties.memberSince),
             isFollowing,
             followers,

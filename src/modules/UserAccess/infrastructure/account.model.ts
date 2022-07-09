@@ -4,7 +4,8 @@ interface AccountProps {
     id: string
     username: string 
     email: string
-    password: string | null
+    picture: string | null
+    password: string
     role: string
 }
 
@@ -30,7 +31,10 @@ export class AccountModel extends Model<AccountProps> {
     email: string;
 
     @Column(DataType.STRING)
-    password: string | null;
+    picture: string | null;
+
+    @Column(DataType.STRING)
+    password: string;
 
     @AllowNull(false)
     @Column

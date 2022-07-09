@@ -59,7 +59,8 @@ export class GetPublicationUsecase implements Usecase<GetPublicationQuery, Publi
             isLiked: data.get("isLiked"),
             author: {
                 id: publisher.properties.id,
-                username: publisher.properties.username
+                username: publisher.properties.username,
+                picture: publisher.properties.picture || null
             }
         }
     }

@@ -1,4 +1,4 @@
-import { Option } from "fp-ts/lib/Option";
+import * as O from "fp-ts/lib/Option";
 import { Entity } from "../../../kernel/Entity";
 import { UID } from "../../../kernel/UID";
 import { Email } from "./email";
@@ -9,17 +9,19 @@ interface AccountProps {
     id: UID
     username: string
     email: Email
+    picture: O.Option<string>
     password: Password
     role: Role
 }
 
 type AccountEntityProps = Omit<AccountProps, "id">;
 type AccountCreation = Omit<AccountProps, "id" | "role">;
-type AccountEdition = Pick<AccountProps, "username" | "email">;
+type AccountEdition = Pick<AccountProps, "username" | "email" | "picture">;
 
 export class Account extends Entity<UID, AccountEntityProps> {
     get username(): string { return this.props.username; }
     get email(): Email { return this.props.email; }
+    get picture(): O.Option<string> { return this.props.picture; }
     get password(): Password { return this.props.password; }
     get role(): Role { return this.props.role; }
 
@@ -30,6 +32,7 @@ export class Account extends Entity<UID, AccountEntityProps> {
     editAccount(props: AccountEdition): void {
         this.props.username = props.username;
         this.props.email = props.email;
+        this.props.picture = props.picture;
     }
 
     static createUser(props: AccountCreation): Account {
