@@ -21,6 +21,7 @@ describe("Account service", () => {
         id: mockId,
         username: "username",
         email: Email.of("some email"),
+        picture: null,
         password: Password.of(bcrypt.hashSync("azertyUIOP123", 10)),
         role: Role.USER
     });
@@ -67,7 +68,7 @@ describe("Account service", () => {
 
     describe("edit", () => {
         it("should return void", async () => {
-            await expect(service.edit(mockId.value, "username", "username@example.com"))
+            await expect(service.edit(mockId.value, "username", "username@example.com", null))
                 .resolves
                 .toBeUndefined();
         });
@@ -75,13 +76,13 @@ describe("Account service", () => {
         it("should throw a NotFoundException when the account does not exist", async () => {
             accounts.findById.mockResolvedValueOnce(none);
 
-            await expect(service.edit(mockId.value, "username", "username@example.com"))
+            await expect(service.edit(mockId.value, "username", "username@example.com", null))
                 .rejects
                 .toBeInstanceOf(NotFoundException);
         });
 
         it("should throw a BadRequestException when the input is invalid", async () => {
-            await expect(service.edit(mockId.value, "", "username@example"))
+            await expect(service.edit(mockId.value, "", "username@example", null))
                 .rejects
                 .toBeInstanceOf(BadRequestException);
         });
@@ -104,13 +105,13 @@ describe("Account service", () => {
 
     describe("register", () => {
         it("should return void", async () => {
-            await expect(service.register("username", "username@example.com", "azertyUIOP123"))
+            await expect(service.register("username", "username@example.com", null, "azertyUIOP123"))
                 .resolves
                 .toBeUndefined();
         });
 
         it("should throw a BadRequestException when the input is invalid", async () => {
-            await expect(service.register("", "username@example.com", "azertyUIOP+/="))
+            await expect(service.register("", "username@example.com", null, "azertyUIOP+/="))
                 .rejects
                 .toBeInstanceOf(BadRequestException);
         });
