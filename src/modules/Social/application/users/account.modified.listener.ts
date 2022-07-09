@@ -15,8 +15,8 @@ export class AccountModifiedListener {
         const session = this.neo4jService.startSession();
         await session.run(
             "MATCH (u:User { id: $id }) " +
-            "SET u.username = $username",
-            { id: event.userId, username: event.username }
+            "SET u += { username: $username, picture: $picture }",
+            { id: event.userId, username: event.username, picture: event.picture }
         )
         .catch(err => this.logger.error(err))
         .finally(async () => await session.close());
