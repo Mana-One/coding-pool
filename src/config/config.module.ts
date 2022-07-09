@@ -7,6 +7,7 @@ import { AppConfig } from "./app.config";
 import { DbConfig } from "./db.config";
 import { Neo4jConfig } from "./neo4j.config";
 import { Judge0Config } from "./judge0.config";
+import { S3Config } from "./s3.config";
 
 @Global()
 @Module({
@@ -33,7 +34,15 @@ import { Judge0Config } from "./judge0.config";
     }, {
         provide: Judge0Config,
         useValue: new Judge0Config(get("JUDGE0_URL").required().asUrlString())
+    }, {
+        provide: S3Config,
+        useValue: new S3Config(
+            get("S3_ACCESS_KEY").required().asString(),
+            get("S3_SECRET_KEY").required().asString(),
+            get("S3_BUCKET").required().asString(),
+            get("S3_ENDPOINT").required().asUrlString()
+        )
     }],
-    exports: [AppConfig, DbConfig, Neo4jConfig, Judge0Config]
+    exports: [AppConfig, DbConfig, Neo4jConfig, Judge0Config, S3Config]
 })
 export class ConfigModule {}
