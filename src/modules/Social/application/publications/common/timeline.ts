@@ -10,6 +10,7 @@ export interface PublicationDto {
     author: {
         id: string 
         username: string
+        picture: string | null
     }
 }
 

@@ -50,7 +50,8 @@ export class ListCommentsUsecase {
             createdAt: Neo4jService.parseDate(comment.properties.createdAt),
             leftBy: {
                 id: user.properties.id,
-                username: user.properties.username
+                username: user.properties.username,
+                picture: user.properties.picture || null
             }
         };
     }

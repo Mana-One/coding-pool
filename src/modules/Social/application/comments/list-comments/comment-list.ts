@@ -7,6 +7,7 @@ export interface CommentDto {
     leftBy: {
         id: string 
         username: string
+        picture: string | null
     }
 }
 

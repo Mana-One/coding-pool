@@ -73,7 +73,8 @@ export class GetUserTimelineUsecase {
             isLiked: data.get("isLiked"),
             author: {
                 id: data.get("user").properties.id,
-                username: data.get("user").properties.username
+                username: data.get("user").properties.username,
+                picture: data.get("user").properties.picture || null
             }
         };
     }

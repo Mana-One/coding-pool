@@ -74,7 +74,8 @@ export class GetHomeTimelineUsecase implements Usecase<GetUserTimelineQuery, Tim
             isLiked: data.get("isLiked"),
             author: {
                 id: data.get("followee").properties.id,
-                username: data.get("followee").properties.username
+                username: data.get("followee").properties.username,
+                picture: data.get("followee").properties.picture || null
             }
         };
     }
