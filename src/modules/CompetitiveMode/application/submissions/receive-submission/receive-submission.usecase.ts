@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import * as E from "fp-ts/lib/Either";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { Usecase } from "../../../../../kernel/usecase";
 import { CompetitionEntered } from "../../../../shared-kernel/competition-entered.event";
 import { COMPETITION_ENTERED } from "../../../../shared-kernel/constants";
 import { SUBMISSIONS } from "../../../constants";

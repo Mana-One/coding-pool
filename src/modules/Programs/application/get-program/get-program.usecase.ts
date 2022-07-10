@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
-import { Usecase } from "../../../../kernel/Usecase";
+import { Usecase } from "../../../../kernel/usecase";
 import { ProgramModel } from "../../infrastructure/program.model";
 import { GetProgramQuery } from "./get-program.query";
 import { ProgramDto } from "./program.dto";

@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { isLeft } from "fp-ts/lib/Either";
-import { UID } from "../../../../kernel/UID";
-import { Usecase } from "../../../../kernel/Usecase";
+import { UID } from "../../../../kernel/uid";
+import { Usecase } from "../../../../kernel/usecase";
 import { InvalidProgram } from "../errors";
 import { ProgramModel } from "../../infrastructure/program.model";
 import { ListProgramsQuery } from "./list-programs.query";

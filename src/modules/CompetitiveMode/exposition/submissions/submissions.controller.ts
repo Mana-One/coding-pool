@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { AppConfig } from "../../../../config/app.config";
-import { PageRequest } from "../../../../kernel/PageRequest";
-import { PageResponse } from "../../../../kernel/PageResponse";
+import { PageRequest } from "../../../../kernel/page-request";
+import { PageResponse } from "../../../../kernel/page-response";
 import { Public } from "../../../../kernel/public.decorator";
 import { Roles } from "../../../../kernel/roles.decorator";
 import { GetLeaderboardsUsecase } from "../../application/submissions/get-leaderboards/get-leaderboards.usecase";

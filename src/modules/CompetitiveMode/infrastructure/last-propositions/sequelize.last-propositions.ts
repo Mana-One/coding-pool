@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import * as O from "fp-ts/lib/Option";
-import { UID } from "../../../../kernel/UID";
+import { UID } from "../../../../kernel/uid";
 import { LastProposition } from "../../domain/last-proposition/last-proposition";
 import { LastPropositions } from "../../domain/last-proposition/last-propositions";
 import { LastPropositionModel } from "./last-proposition.model";

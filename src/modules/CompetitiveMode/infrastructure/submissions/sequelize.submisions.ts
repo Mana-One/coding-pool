@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { none, Option, some } from "fp-ts/lib/Option";
 import { SequelizeService } from "../../../../infrastructure/sequelize/sequelize.service";
-import { UID } from "../../../../kernel/UID";
+import { UID } from "../../../../kernel/uid";
 import { Submission } from "../../domain/submissions/submission";
 import { Submissions } from "../../domain/submissions/submissions";
 import { SubmissionModel } from "./submission.model";

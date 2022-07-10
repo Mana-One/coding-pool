@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { Usecase } from "../../../../../kernel/usecase";
 import { SubmissionModel } from "../../../infrastructure/submissions/submission.model";
 import { GetLeaderboardsQuery } from "./get-leaderboards.query";
 import { Leaderboards } from "./leaderboards";

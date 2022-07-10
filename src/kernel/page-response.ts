@@ -1,5 +1,5 @@
 import { isSome } from "fp-ts/lib/Option";
-import { Page } from "./Page";
+import { Page } from "./page";
 
 export class PageResponse<T extends {}> {
     readonly total: number;

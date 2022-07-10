@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { Neo4jService } from "../../../../../infrastructure/neo4j/neo4j.service";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { Usecase } from "../../../../../kernel/usecase";
 import { GetPublicationQuery } from "./get-publication.query";
 import { PublicationDto } from "./publication.dto";
 

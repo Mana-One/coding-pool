@@ -1,4 +1,4 @@
-import { UniqueId } from "./UniqueId";
+import { UniqueId } from "./unique-id";
 
 export abstract class Entity<VOID extends UniqueId<{}>, TProps extends {}> {
     protected constructor(readonly id: VOID, protected props: TProps) {}

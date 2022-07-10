@@ -1,8 +1,8 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
-import { UID } from "../../../../../kernel/UID";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { UID } from "../../../../../kernel/uid";
+import { Usecase } from "../../../../../kernel/usecase";
 import { CODE_JUDGE, COMPETITIONS, LAST_PROPOSITIONS } from "../../../constants";
 import { Competitions } from "../../../domain/competitions/competitions";
 import { LastProposition } from "../../../domain/last-proposition/last-proposition";

@@ -2,10 +2,10 @@ import { sequenceS } from "fp-ts/lib/Apply";
 import { Either, fromPredicate, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { Entity } from "../../../kernel/Entity";
-import { cumulativeValidation } from "../../../kernel/FpUtils";
-import { StringUtils } from "../../../kernel/StringUtils";
-import { UID } from "../../../kernel/UID";
+import { Entity } from "../../../kernel/entity";
+import { cumulativeValidation } from "../../../kernel/fp-utils";
+import { StringUtils } from "../../../kernel/string-utils";
+import { UID } from "../../../kernel/uid";
 
 interface ProgramProps {
     id: UID

@@ -1,7 +1,7 @@
 import { Either, left, right } from "fp-ts/lib/Either";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { v1, validate } from "uuid";
-import { UniqueId } from "./UniqueId";
+import { UniqueId } from "./unique-id";
 
 export class UID extends UniqueId<string> {
     override equals(other: object): boolean {

@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import * as E from "fp-ts/lib/Either";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { Usecase } from "../../../../../kernel/usecase";
 import { COMPETITIONS } from "../../../constants";
 import { Competition } from "../../../domain/competitions/competition";
 import { Competitions } from "../../../domain/competitions/competitions";

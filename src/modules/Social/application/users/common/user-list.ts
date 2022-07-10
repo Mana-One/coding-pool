@@ -1,4 +1,4 @@
-import { Page } from "../../../../../kernel/Page"
+import { Page } from "../../../../../kernel/page"
 
 export interface SingleUserDto {
     id: string 

@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { int } from "neo4j-driver";
 import { Neo4jService } from "../../../../../infrastructure/neo4j/neo4j.service";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { Usecase } from "../../../../../kernel/usecase";
 import { SingleUserDto, UserList } from "../common/user-list";
 import { SearchUsersQuery } from "./search-users.query";
 

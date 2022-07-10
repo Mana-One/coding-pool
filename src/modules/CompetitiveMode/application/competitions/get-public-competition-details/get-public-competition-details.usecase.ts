@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { Usecase } from "../../../../../kernel/usecase";
 import { CompetitionModel } from "../../../infrastructure/competitions/competition.model";
 import { PublicCompetitionDetails } from "./public-competition-details.dto";
 

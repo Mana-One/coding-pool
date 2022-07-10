@@ -2,7 +2,7 @@ import { HttpException, Injectable, InternalServerErrorException } from "@nestjs
 import { Option } from "fp-ts/lib/Option";
 import * as neo4j from "neo4j-driver";
 import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
-import { UID } from "../../../../kernel/UID";
+import { UID } from "../../../../kernel/uid";
 import { Comment } from "../../domain/comments/comment";
 import { Comments } from "../../domain/comments/comments";
 import { NotTheOwner } from "../../domain/comments/errors";

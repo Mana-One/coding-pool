@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { isLeft } from "fp-ts/lib/Either";
-import { Usecase } from "../../../../kernel/Usecase";
+import { Usecase } from "../../../../kernel/usecase";
 import { PROGRAMS } from "../../constants";
 import { InvalidProgram } from "../errors";
 import { Program } from "../../domain/program";

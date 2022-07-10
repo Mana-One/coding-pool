@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import * as O from "fp-ts/lib/Option";
-import { UID } from "../../../../kernel/UID";
+import { UID } from "../../../../kernel/uid";
 import { Competition } from "../../domain/competitions/competition";
 import { Competitions } from "../../domain/competitions/competitions";
 import { CompetitionMapper } from "./competition.mapper";

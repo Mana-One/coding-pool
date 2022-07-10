@@ -2,8 +2,8 @@ import { sequenceT } from "fp-ts/lib/Apply";
 import * as E from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import * as NEA from "fp-ts/lib/NonEmptyArray";
-import { cumulativeValidation } from "../../../../kernel/FpUtils";
-import { UID } from "../../../../kernel/UID";
+import { cumulativeValidation } from "../../../../kernel/fp-utils";
+import { UID } from "../../../../kernel/uid";
 
 interface SubmissionProps {
     competitionId: string

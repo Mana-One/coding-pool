@@ -3,8 +3,8 @@ import { sequenceT } from "fp-ts/lib/Apply";
 import { Either, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { cumulativeValidation } from "../../../kernel/FpUtils";
-import { StringUtils } from "../../../kernel/StringUtils";
+import { cumulativeValidation } from "../../../kernel/fp-utils";
+import { StringUtils } from "../../../kernel/string-utils";
 
 export class Password {
     private constructor(

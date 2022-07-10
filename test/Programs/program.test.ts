@@ -1,5 +1,5 @@
 import { isLeft, isRight } from "fp-ts/lib/Either";
-import { UID } from "../../src/kernel/UID";
+import { UID } from "../../src/kernel/uid";
 import { Program } from "../../src/modules/Programs/domain/program";
 
 describe("Program", () => {

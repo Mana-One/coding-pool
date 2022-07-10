@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Op } from "sequelize";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { Usecase } from "../../../../../kernel/usecase";
 import { CompetitionStatus } from "../../../domain/competitions/competition-status";
 import { CompetitionModel } from "../../../infrastructure/competitions/competition.model";
 import { CompetitionList } from "./competition-list";

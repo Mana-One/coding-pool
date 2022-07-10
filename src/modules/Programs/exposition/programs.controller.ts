@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { AppConfig } from "../../../config/app.config";
-import { PageRequest } from "../../../kernel/PageRequest";
-import { PageResponse } from "../../../kernel/PageResponse";
+import { PageRequest } from "../../../kernel/page-request";
+import { PageResponse } from "../../../kernel/page-response";
 import { CreateProgramUsecase } from "../application/create-program/create-program.usecase";
 import { GetProgramUsecase } from "../application/get-program/get-program.usecase";
 import { ListProgramsUsecase } from "../application/list-programs/list-programs.usecase";

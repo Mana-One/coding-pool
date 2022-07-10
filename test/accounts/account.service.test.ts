@@ -2,7 +2,7 @@ import * as bcrypt from "bcrypt";
 import { BadRequestException, NotFoundException } from "@nestjs/common";
 import { none, some } from "fp-ts/lib/Option";
 import { mock } from "jest-mock-extended";
-import { UID } from "../../src/kernel/UID";
+import { UID } from "../../src/kernel/uid";
 import { AccountService } from "../../src/modules/UserAccess/application/account.service";
 import { Account } from "../../src/modules/UserAccess/domain/account";
 import { Accounts } from "../../src/modules/UserAccess/domain/accounts";

@@ -3,9 +3,9 @@ import { sequenceS } from "fp-ts/lib/Apply";
 import { isLeft } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { Neo4jService } from "../../../../../infrastructure/neo4j/neo4j.service";
-import { cumulativeValidation } from "../../../../../kernel/FpUtils";
-import { UID } from "../../../../../kernel/UID";
-import { Usecase } from "../../../../../kernel/Usecase";
+import { cumulativeValidation } from "../../../../../kernel/fp-utils";
+import { UID } from "../../../../../kernel/uid";
+import { Usecase } from "../../../../../kernel/usecase";
 import { WriteLikeCommand } from "../common/write-like.command";
 
 @Injectable()
