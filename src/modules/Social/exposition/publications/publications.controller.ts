@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Req } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, Req } from "@nestjs/common";
 import { CreatePublicationRequest } from "./create-publication.request";
 import { PageResponse } from "../../../../kernel/PageResponse";
 import { AppConfig } from "../../../../config/app.config";
@@ -7,6 +7,7 @@ import { CreatePublicationUsecase } from "../../application/publications/create-
 import { GetUserTimelineUsecase } from "../../application/publications/get-user-timeline/get-user-timeline.usecase";
 import { GetHomeTimelineUsecase } from "../../application/publications/get-home-timeline/get-home-timeline.usecase";
 import { GetPublicationUsecase } from "../../application/publications/get-publication/get-publication.usecase";
+import { RemovePublicationUsecase } from "../../application/publications/remove-publication/remove-publication.usecase";
 
 @Controller("publications")
 export class PublicationsController {
@@ -15,7 +16,8 @@ export class PublicationsController {
         private readonly createPublicationUsecase: CreatePublicationUsecase,
         private readonly getUserTimelineUsecase: GetUserTimelineUsecase,
         private readonly getHomeTimelineUsecase: GetHomeTimelineUsecase,
-        private readonly getPublicationUsecase: GetPublicationUsecase
+        private readonly getPublicationUsecase: GetPublicationUsecase,
+        private readonly removePublicationUsecase: RemovePublicationUsecase
     ) {}
 
     @Post()
@@ -78,5 +80,16 @@ export class PublicationsController {
         @Req() request
     ) {
         return this.getPublicationUsecase.execute({ id, callerId: request.user.accountId });
+    }
+
+    @Delete(":publicationId")
+    async removePublication(
+        @Req() request, 
+        @Param("publicationId") publicationId: string
+    ) {
+        await this.removePublicationUsecase.execute({
+            publicationId,
+            callerId: request.user.accountId
+        });
     }
 }

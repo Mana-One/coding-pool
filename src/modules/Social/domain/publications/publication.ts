@@ -40,4 +40,8 @@ export class Publication extends Entity<UID, PublicationAttributes> {
             E.mapLeft(InvalidPublication.fromMessages)
         );
     }
+
+    static of(props: PublicationProps): Publication {
+        return new Publication(props.id, props);
+    }
 }

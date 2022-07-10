@@ -24,6 +24,7 @@ import { SearchUsersUsecase } from "../application/users/search-users/search-use
 import { AccountModifiedListener } from "../application/users/account.modified.listener";
 import { CompetitionEnteredListener } from "../application/users/competition-entered.listener";
 import { WinnerComputedListener } from "../application/users/winner-computed.listener";
+import { RemovePublicationUsecase } from "../application/publications/remove-publication/remove-publication.usecase";
 
 const usersProviders = [
     GetUserUsecase, 
@@ -41,7 +42,8 @@ const publicationsProviders = [
     CreatePublicationUsecase,
     GetUserTimelineUsecase, 
     GetHomeTimelineUsecase, 
-    GetPublicationUsecase, {
+    GetPublicationUsecase, 
+    RemovePublicationUsecase, {
         provide: PUBLICATIONS,
         useClass: Neo4jPublications
 }];
