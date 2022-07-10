@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { Option } from "fp-ts/lib/Option";
+import * as O from "fp-ts/lib/Option";
 import * as neo4j from 'neo4j-driver';
 import { Neo4jService } from "../../../../infrastructure/neo4j/neo4j.service";
 import { UID } from "../../../../kernel/UID";
@@ -10,8 +10,31 @@ import { Publications } from "../../domain/publications/publications";
 export class Neo4jPublications implements Publications {
     constructor(private readonly neo4jService: Neo4jService) {}
 
-    findById(id: UID): Promise<Option<Publication>> {
-        throw new Error("Method not implemented.");
+    async findById(id: UID): Promise<O.Option<Publication>> {
+        const session = this.neo4jService.startSession();
+        const row = await session.run(
+            "MATCH (publication:Publication {id: $id})<-[:PUBLISHED]-(publisher:User)",
+            { id: id.value }
+        )
+        .catch(err => { throw new InternalServerErrorException(String(err)); })
+        .finally(async () => await session.close());
+
+        if (row.records.length === 0) {
+            return O.none;
+        }
+        return O.some(this.toDomain(row.records[0]));
+    }
+
+    async remove(entity: Publication): Promise<void> {
+        const session = this.neo4jService.startSession();
+        await session.run(
+            "MATCH (p:Publication {id: $id})<-[:IS_ATTACHED_TO]-(c:Comment)\n" +
+            "CALL { with c DETACH DELATE c } IN TRANSACTIONS OF 5000 ROWS\n" +
+            "DETACH DELETE p",
+            { id: entity.id.value }
+        )
+        .catch(err => { throw new InternalServerErrorException(String(err)); })
+        .finally(async () => await session.close());
     }
 
     async save(entity: Publication): Promise<void> {
@@ -23,5 +46,17 @@ export class Neo4jPublications implements Publications {
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
         .finally(async () => await session.close());
+    }
+
+    private toDomain(data: any): Publication {
+        const publication = data.get("publication");
+        const publisher = data.get("publisher");
+        return Publication.of({
+            id: UID.of(publication.properties.id),
+            content: publication.properties.content,
+            postedBy: UID.of(publisher.properties.id),
+            postedIn: O.none,
+            createdAt: Neo4jService.parseDate(publication.properties.createdAt)
+        });
     }
 }
