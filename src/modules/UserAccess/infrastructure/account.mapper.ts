@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import * as O from "fp-ts/lib/Option";
-import { UID } from "../../../kernel/UID";
+import { UID } from "../../../kernel/uid";
 import { Account } from "../domain/account";
 import { Email } from "../domain/email";
 import { Password } from "../domain/password";

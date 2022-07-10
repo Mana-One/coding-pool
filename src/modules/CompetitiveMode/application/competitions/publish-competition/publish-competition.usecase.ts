@@ -2,7 +2,7 @@ import { BadRequestException, Inject, Injectable, NotFoundException } from "@nes
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
-import { UID } from "../../../../../kernel/UID";
+import { UID } from "../../../../../kernel/uid";
 import { Usecase } from "../../../../../kernel/Usecase";
 import { WINNER_COMPUTED } from "../../../../shared-kernel/constants";
 import { WinnerComputed } from "../../../../shared-kernel/winner-computed.event";

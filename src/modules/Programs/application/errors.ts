@@ -1,5 +1,5 @@
 import { BadRequestException, NotFoundException } from "@nestjs/common";
-import { UID } from "../../../kernel/UID";
+import { UID } from "../../../kernel/uid";
 
 export class InvalidProgram extends BadRequestException {
     static fromMessages(messages: string[]): InvalidProgram {

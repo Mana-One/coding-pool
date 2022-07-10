@@ -1,5 +1,5 @@
 import { mock } from "jest-mock-extended"
-import { UID } from "../../../src/kernel/UID";
+import { UID } from "../../../src/kernel/uid";
 import { CreatePublicationUsecase } from "../../../src/modules/Social/application/publications/create-publication/create-publication.usecase";
 import { InvalidPublication } from "../../../src/modules/Social/domain/publications/errors";
 import { Publications } from "../../../src/modules/Social/domain/publications/publications"

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { AppConfig } from "../../../../config/app.config";
-import { PageResponse } from "../../../../kernel/PageResponse";
+import { PageResponse } from "../../../../kernel/page-response";
 import { Roles } from "../../../../kernel/roles.decorator";
 import { CreateCompetitionUsecase } from "../../application/competitions/create-competition/create-competition.usecase";
 import { GetPublicCompetitionDetailsUsecase } from "../../application/competitions/get-public-competition-details/get-public-competition-details.usecase";

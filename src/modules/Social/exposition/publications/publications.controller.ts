@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post, Query, Req } from "@nestjs/common";
 import { CreatePublicationRequest } from "./create-publication.request";
-import { PageResponse } from "../../../../kernel/PageResponse";
+import { PageResponse } from "../../../../kernel/page-response";
 import { AppConfig } from "../../../../config/app.config";
-import { PageRequest } from "../../../../kernel/PageRequest";
+import { PageRequest } from "../../../../kernel/page-request";
 import { CreatePublicationUsecase } from "../../application/publications/create-publication/create-publication.usecase";
 import { GetUserTimelineUsecase } from "../../application/publications/get-user-timeline/get-user-timeline.usecase";
 import { GetHomeTimelineUsecase } from "../../application/publications/get-home-timeline/get-home-timeline.usecase";

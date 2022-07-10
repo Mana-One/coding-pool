@@ -1,4 +1,4 @@
-import { UID } from "../../../../kernel/UID";
+import { UID } from "../../../../kernel/uid";
 import { Competition } from "../../domain/competitions/competition";
 import { CompetitionStatus } from "../../domain/competitions/competition-status";
 import { CompetitionModel } from "./competition.model";

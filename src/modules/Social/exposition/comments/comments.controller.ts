@@ -5,7 +5,7 @@ import { RemoveCommentUsecase } from "../../application/comments/remove-comment/
 import { ListCommentsUsecase } from "../../application/comments/list-comments/list-comments.usecase";
 import { ListCommentsRequest } from "./list-comments.request";
 import { AppConfig } from "../../../../config/app.config";
-import { PageResponse } from "../../../../kernel/PageResponse";
+import { PageResponse } from "../../../../kernel/page-response";
 
 @Controller("comments")
 export class CommentsController {

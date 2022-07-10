@@ -8,8 +8,8 @@ import { LastPropositions } from "../../../domain/last-proposition/last-proposit
 import { GetLastPropositionQuery } from "./get-last-proposition.query";
 import { GetLastPropositionView } from "./get-last-proposition.view";
 import { pipe } from "fp-ts/lib/function";
-import { cumulativeValidation } from "../../../../../kernel/FpUtils";
-import { UID } from "../../../../../kernel/UID";
+import { cumulativeValidation } from "../../../../../kernel/fp-utils";
+import { UID } from "../../../../../kernel/uid";
 import { LastProposition } from "../../../domain/last-proposition/last-proposition";
 
 export class GetLastPropositionUsecase 

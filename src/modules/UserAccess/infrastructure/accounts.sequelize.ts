@@ -3,7 +3,7 @@ import { none, Option, some } from "fp-ts/lib/Option";
 import { InjectS3, S3 } from "nestjs-s3";
 import { S3Config } from "../../../config/s3.config";
 import { SequelizeService } from "../../../infrastructure/sequelize/sequelize.service";
-import { UID } from "../../../kernel/UID";
+import { UID } from "../../../kernel/uid";
 import { Account } from "../domain/account";
 import { Accounts } from "../domain/accounts";
 import { AccountMapper } from "./account.mapper";

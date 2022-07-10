@@ -1,5 +1,5 @@
 import { Option } from "fp-ts/lib/Option";
-import { UID } from "../../../../kernel/UID";
+import { UID } from "../../../../kernel/uid";
 import { Submission } from "./submission";
 
 export interface Submissions {

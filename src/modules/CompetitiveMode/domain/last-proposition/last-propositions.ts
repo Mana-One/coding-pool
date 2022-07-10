@@ -1,5 +1,5 @@
 import { Option } from "fp-ts/lib/Option";
-import { UID } from "../../../../kernel/UID";
+import { UID } from "../../../../kernel/uid";
 import { LastProposition } from "./last-proposition";
 
 export interface LastPropositions {

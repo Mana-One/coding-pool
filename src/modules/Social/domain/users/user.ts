@@ -1,5 +1,5 @@
-import { Entity } from "../../../../kernel/Entity";
-import { UID } from "../../../../kernel/UID";
+import { Entity } from "../../../../kernel/entity";
+import { UID } from "../../../../kernel/uid";
 
 interface UserProps {
     id: UID 
