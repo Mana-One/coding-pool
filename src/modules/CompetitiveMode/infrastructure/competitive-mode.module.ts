@@ -16,6 +16,7 @@ import { PublishCompetitionUsecase } from "../application/competitions/publish-c
 import { SequelizeLastPropositions } from "./last-propositions/sequelize.last-propositions";
 import { GetLastPropositionUsecase } from "../application/last-proposition/get-last-proposition/get-last-proposition.usecase";
 import { LastPropositionsController } from "../exposition/last-propositions/last-propositions.controller";
+import { WinnerNotifierCron } from "./scheduled-tasks/winner-notifier.cron";
 
 const competitionProviders = [
     CreateCompetitionUsecase,
@@ -51,8 +52,15 @@ const lastPropositionProviders = [
     }
 ];
 
+const scheduledTasks = [WinnerNotifierCron];
+
 @Module({
-    providers: [...competitionProviders, ...submissionProviders, ...lastPropositionProviders],
+    providers: [
+        ...competitionProviders, 
+        ...submissionProviders, 
+        ...lastPropositionProviders,
+        ...scheduledTasks
+    ],
     controllers: [CompetitionsController, SubmissionsController, LastPropositionsController]
 })
 export class CompetitiveModeModule {}

@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { EventEmitterModule } from "@nestjs/event-emitter";
+import { ScheduleModule } from "@nestjs/schedule";
 import { S3Module } from "nestjs-s3";
 import { ConfigModule } from "./config/config.module";
 import { S3Config } from "./config/s3.config";
@@ -40,6 +41,7 @@ const contexts = [
             }),
             inject: [S3Config]
         }),
+        ScheduleModule.forRoot(),
         ...contexts,
         ...persistence
     ]
