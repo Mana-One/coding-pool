@@ -1,8 +1,9 @@
-import { ForbiddenException, Injectable } from "@nestjs/common";
+import { ForbiddenException, Inject, Injectable } from "@nestjs/common";
 import * as E from "fp-ts/lib/Either";
 import * as O from "fp-ts/lib/Option";
 import { UID } from "../../../../../kernel/UID";
 import { Usecase } from "../../../../../kernel/Usecase";
+import { PUBLICATIONS } from "../../../constants";
 import { InvalidPublication, PublicationNotFound } from "../../../domain/publications/errors";
 import { Publication } from "../../../domain/publications/publication";
 import { Publications } from "../../../domain/publications/publications";
@@ -10,7 +11,7 @@ import { RemovePublicationCommand } from "./remove-publication.command";
 
 @Injectable()
 export class RemovePublicationUsecase implements Usecase<RemovePublicationCommand, void> {
-    constructor(private readonly publications: Publications) {}
+    constructor(@Inject(PUBLICATIONS) private readonly publications: Publications) {}
 
     async execute(request: RemovePublicationCommand): Promise<void> {
         const publication = await this.fetchPublication(request.publicationId);

@@ -13,7 +13,8 @@ export class Neo4jPublications implements Publications {
     async findById(id: UID): Promise<O.Option<Publication>> {
         const session = this.neo4jService.startSession();
         const row = await session.run(
-            "MATCH (publication:Publication {id: $id})<-[:PUBLISHED]-(publisher:User)",
+            "MATCH (publication:Publication {id: $id})<-[:PUBLISHED]-(publisher:User)\n" +
+            "RETURN publication, publisher",
             { id: id.value }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
@@ -29,7 +30,7 @@ export class Neo4jPublications implements Publications {
         const session = this.neo4jService.startSession();
         await session.run(
             "MATCH (p:Publication {id: $id})<-[:IS_ATTACHED_TO]-(c:Comment)\n" +
-            "CALL { with c DETACH DELATE c } IN TRANSACTIONS OF 5000 ROWS\n" +
+            "CALL { with c DETACH DELETE c } IN TRANSACTIONS OF 5000 ROWS\n" +
             "DETACH DELETE p",
             { id: entity.id.value }
         )
