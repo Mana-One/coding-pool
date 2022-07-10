@@ -3,7 +3,6 @@ import { AllowNull, Column, DataType, Model, PrimaryKey, Table } from "sequelize
 interface CompetitionProps {
     id: string 
     title: string 
-    status: string
     description: string 
     startDate: Date 
     endDate: Date
@@ -26,10 +25,6 @@ export class CompetitionModel extends Model<CompetitionProps> {
     @AllowNull(false)
     @Column(DataType.STRING)
     title: string;
-
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    status: string;
     
     @AllowNull(false)
     @Column(DataType.STRING)

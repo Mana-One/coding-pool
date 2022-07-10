@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import * as O from "fp-ts/lib/Option";
 import { UID } from "../../../../kernel/UID";
 import { Competition } from "../../domain/competitions/competition";
