@@ -1,6 +1,5 @@
 import { UID } from "../../../../kernel/UID";
 import { Competition } from "../../domain/competitions/competition";
-import { CompetitionStatus } from "../../domain/competitions/competition-status";
 import { CompetitionModel } from "./competition.model";
 
 export class CompetitionMapper {
@@ -8,7 +7,6 @@ export class CompetitionMapper {
         return {
             id: competition.id.value,
             title: competition.title,
-            status: competition.status,
             description: competition.description,
             startDate: competition.startDate,
             endDate: competition.endDate,
@@ -22,7 +20,6 @@ export class CompetitionMapper {
         return Competition.of({
             id: UID.of(instance.id),
             title: instance.title,
-            status: instance.status as CompetitionStatus,
             description: instance.description,
             startDate: instance.startDate,
             endDate: instance.endDate,

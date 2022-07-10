@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Op } from "sequelize";
 import { Usecase } from "../../../../../kernel/Usecase";
-import { CompetitionStatus } from "../../../domain/competitions/competition-status";
 import { CompetitionModel } from "../../../infrastructure/competitions/competition.model";
 import { CompetitionList } from "./competition-list";
 import { CompetitionDto } from "./competition.dto";
@@ -17,8 +16,6 @@ export class ListCompetitonsUsecase implements Usecase<ListCompetitionsQuery, Co
                 return this.listFutureCompetitions(request);
             case "ended":
                 return this.listPastCompetitions(request);
-            case "published":
-                return this.listPublishedCompetitions(request);
             default:
                 throw new BadRequestException("Invalid competition status.");
         }
@@ -28,7 +25,6 @@ export class ListCompetitonsUsecase implements Usecase<ListCompetitionsQuery, Co
         return await CompetitionModel.findAndCountAll({
             attributes: ["id", "title", "startDate", "endDate"],
             where: { 
-                status: CompetitionStatus.IN_PROGRESS,
                 startDate: { [Op.gt]: Date.now() }
             },
             limit: request.limit,
@@ -43,7 +39,6 @@ export class ListCompetitonsUsecase implements Usecase<ListCompetitionsQuery, Co
         return await CompetitionModel.findAndCountAll({
             attributes: ["id", "title", "startDate", "endDate"],
             where: { 
-                status: CompetitionStatus.IN_PROGRESS,
                 startDate: { [Op.lte]: now },
                 endDate: { [Op.gte]: now }
             },
@@ -58,20 +53,8 @@ export class ListCompetitonsUsecase implements Usecase<ListCompetitionsQuery, Co
         return await CompetitionModel.findAndCountAll({
             attributes: ["id", "title", "startDate", "endDate"],
             where: { 
-                status: CompetitionStatus.IN_PROGRESS,
                 endDate: { [Op.lt]: Date.now() }
             },
-            limit: request.limit,
-            offset: request.offset
-        })
-        .then(res => new CompetitionList(res.rows.map(this.toDto), res.count, request.limit, request.offset))
-        .catch(err => { throw new InternalServerErrorException(String(err)); });
-    }
-
-    private async listPublishedCompetitions(request: ListCompetitionsQuery): Promise<CompetitionList> {
-        return await CompetitionModel.findAndCountAll({
-            attributes: ["id", "title", "startDate", "endDate"],
-            where: { status: CompetitionStatus.PUBLISHED },
             limit: request.limit,
             offset: request.offset
         })

@@ -12,7 +12,6 @@ import { CompetitionMapper } from "./competitions/competition.mapper";
 import { SequelizeCompetitions } from "./competitions/sequelize.competitions";
 import { Judg0Gateway } from "./submissions/judge0-gateway";
 import { SequelizeSubmissions } from "./submissions/sequelize.submisions";
-import { PublishCompetitionUsecase } from "../application/competitions/publish-competition/publish-competition.usecase";
 import { SequelizeLastPropositions } from "./last-propositions/sequelize.last-propositions";
 import { GetLastPropositionUsecase } from "../application/last-proposition/get-last-proposition/get-last-proposition.usecase";
 import { LastPropositionsController } from "../exposition/last-propositions/last-propositions.controller";
@@ -22,7 +21,6 @@ const competitionProviders = [
     CreateCompetitionUsecase,
     ListCompetitonsUsecase,
     GetPublicCompetitionDetailsUsecase,
-    PublishCompetitionUsecase,
     CompetitionMapper,
     {
         provide: COMPETITIONS,
