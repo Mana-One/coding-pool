@@ -17,10 +17,10 @@ export class SequelizeService {
     static init(url: string): SequelizeService {
         const sequelize = new Sequelize(url, {
             dialectOptions: {
-                ssl: {
-                    require: true,
-                    rejectUnauthorized: false
-                }
+                // ssl: {
+                //     require: true,
+                //     rejectUnauthorized: false
+                // }
             },
             logging: false
         });
