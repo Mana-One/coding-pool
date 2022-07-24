@@ -29,10 +29,10 @@ export class Neo4jPublications implements Publications {
     async remove(entity: Publication): Promise<void> {
         const session = this.neo4jService.startSession();
         await session.run(
-            "MATCH (p:Publication {id: $id})<-[:IS_ATTACHED_TO]-(c:Comment)\n" +
-            "CALL { with c DETACH DELETE c } IN TRANSACTIONS OF 5000 ROWS\n" +
-            "DETACH DELETE p",
-            { id: entity.id.value }
+          "MATCH (p:Publication {id: $id})\n" +
+          "OPTIONAL MATCH (p)<-[:IS_ATTACHED_TO]-(c:Comment)\n" +
+          "DETACH DELETE c, p",
+          { id: entity.id.value }
         )
         .catch(err => { throw new InternalServerErrorException(String(err)); })
         .finally(async () => await session.close());
